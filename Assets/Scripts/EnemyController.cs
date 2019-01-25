@@ -17,17 +17,17 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         lifetime -= 1;
-        if (lifetime == 0) enemyDie();
+        if (lifetime == 0) EnemyDie();
     }
 
-    private void enemyDie()
+    private void EnemyDie()
     {
         Destroy(this.gameObject);
     }
 
-    public void hurt()
+    public void Hurt()
     {
         healthPoint -= 1;
-        if (healthPoint == 0) enemyDie();
+        if (healthPoint == 0) EnemyDie();
     }
 }
