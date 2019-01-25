@@ -12,15 +12,15 @@ public class PlayerController : MonoBehaviour, IDamageable {
     private float turn;
     private bool isFacingRight = true;
     private float distToGround;
-    public bool isGrounded = true;
+    private bool isGrounded = true;
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
         distToGround = GetComponent<Collider2D>().bounds.extents.y;
     }
 
     void Update() {
-        updateHorizontalMove();
-        updateJumpState();
+        UpdateHorizontalMove();
+        UpdateJumpState();
     }
 
     void FixedUpdate() {
@@ -29,27 +29,27 @@ public class PlayerController : MonoBehaviour, IDamageable {
         }
     }
 
-    void updateHorizontalMove() {
+    void UpdateHorizontalMove() {
         if (isGrounded) {
             float newHorizontal = Input.GetAxis("Horizontal");
 
             if (newHorizontal > 0 && !isFacingRight) {
-                changeMoveDirection();
+                ChangeMoveDirection();
             } else if (newHorizontal < 0 && isFacingRight) {
-                changeMoveDirection();
+                ChangeMoveDirection();
             }
 
             turn = newHorizontal;
         }
     }
 
-    void changeMoveDirection() {
+    void ChangeMoveDirection() {
         rigidbody.velocity = new Vector2(0f, 0f);
         rigidbody.angularVelocity = 0f;
         isFacingRight = !isFacingRight;
     }
 
-    void updateJumpState() {
+    void UpdateJumpState() {
         if (Input.GetButtonDown("Jump") && isGrounded) {
             rigidbody.AddForce(Vector2.up * 600f);
         }
