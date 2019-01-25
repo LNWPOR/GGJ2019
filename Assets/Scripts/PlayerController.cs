@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour, IDamageable {
     void Update() {
         UpdateHorizontalMove();
         UpdateJumpState();
-        Debug.Log(IsGrounded());
     }
 
     void FixedUpdate() {
