@@ -2,36 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : AttachableObject, IDamageable
-{
+public class PlayerController : MonoBehaviour, IDamageable {
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    
+    private Rigidbody2D rigidbody;
+    [SerializeField]
+    private float torqueSpeed = 10f;
+    private float turn;
+    private bool isFacingRight = true;
+
+    void Start() {
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        updateHorizontalMove();
     }
 
-    public int Hit(int damage)
-    {
+    void FixedUpdate() {
+        rigidbody.AddTorque(torqueSpeed * turn * -1);
+    }
+
+    void updateHorizontalMove() {
+        float newHorizontal = Input.GetAxis("Horizontal");
+        bool currentFacing;
+        if (newHorizontal > 0) {
+            currentFacing = true;
+        } else {
+            currentFacing = false;
+        }
+
+        if (!currentFacing.Equals(isFacingRight)) {
+            rigidbody.velocity = new Vector2(0f, 0f);
+            rigidbody.angularVelocity = 0f;
+            isFacingRight = currentFacing;
+        }
+
+        turn = newHorizontal;
+    }
+    public int Hit(int damage) {
         int remainingHP = this.hitpoint - damage;
         this.hitpoint = remainingHP;
-        if (remainingHP <= 0)
-        {
+        if (remainingHP <= 0) {
             this.Dead();
         }
         return remainingHP;
     }
 
-    public void Dead()
-    {
+    public void Dead() {
         // Handle dead
     }
 }
