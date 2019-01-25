@@ -26,20 +26,26 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     void updateHorizontalMove() {
         float newHorizontal = Input.GetAxis("Horizontal");
-        bool currentFacing;
-        if (newHorizontal > 0) {
-            currentFacing = true;
-        } else {
-            currentFacing = false;
-        }
 
-        if (!currentFacing.Equals(isFacingRight)) {
-            rigidbody.velocity = new Vector2(0f, 0f);
-            rigidbody.angularVelocity = 0f;
-            isFacingRight = currentFacing;
+        if (newHorizontal > 0 && !isFacingRight) {
+            changeMoveDirection();
+        } else if (newHorizontal < 0 && isFacingRight) {
+            changeMoveDirection();
         }
 
         turn = newHorizontal;
+    }
+
+    void changeMoveDirection() {
+        rigidbody.velocity = new Vector2(0f, 0f);
+        rigidbody.angularVelocity = 0f;
+        isFacingRight = !isFacingRight;
+    }
+
+    void updateJumpState() {
+        if (Input.GetButtonDown("Jump") && isGrouded()) {
+            rigidbody.AddForce(Vector2.up * 600f);
+        }
     }
     public int Hit(int damage) {
         int remainingHP = this.hitpoint - damage;
@@ -52,5 +58,9 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     public void Dead() {
         // TODO: Handle dead
+    }
+
+    bool isGrouded() {
+        return rigidbody.velocity.y == 0;
     }
 }
