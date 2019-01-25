@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     return _Instance;
   }
   private STATE _GameState;
+  private float _SpeedMultipier = 1f;
 
   public enum STATE
   {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
   public void DoBossDead()
   {
     Debug.Log("<color=green>DoBossDead.</color>");
+    _SpeedMultipier += 0.5f;
     SceneManager.LoadScene("SampleScene");
   }
 
@@ -35,5 +37,10 @@ public class GameManager : MonoBehaviour
   {
     _GameState = STATE.BossFight;
     Debug.Log("<color=orange>Now game is state : </color>" + _GameState);
+  }
+
+  public float GetSpeedMultipier()
+  {
+    return _SpeedMultipier;
   }
 }
