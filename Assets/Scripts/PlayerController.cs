@@ -9,13 +9,16 @@ public class PlayerController : MonoBehaviour, IDamageable {
     private Rigidbody2D rigidbody;
     [SerializeField]
     private float torqueSpeed = 10f;
+    [SerializeField]
+    private float jumpForce = 600f;
     private float turn;
     private bool isFacingRight = true;
-    private float distToGround;
     private bool isGrounded = true;
+    private const int MAX_GROUNED_COLLIDER_CHECK = 20;
+    private Collider2D[] colliders = new Collider2D[20];
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
-        distToGround = GetComponent<Collider2D>().bounds.extents.y;
+        colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
     }
 
     void Update() {
@@ -24,13 +27,28 @@ public class PlayerController : MonoBehaviour, IDamageable {
     }
 
     void FixedUpdate() {
-        if (isGrounded) {
+
+        if (IsGrounded()) {
             rigidbody.AddTorque(torqueSpeed * turn * -1 * GameManager.GetInstance().GetSpeedMultipier());
         }
     }
 
+    bool IsGrounded() {
+        int groundLayer = 8;
+        colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
+        PhysicsScene2D.OverlapCollider(GetComponent<Collider2D>(), colliders, Physics2D.DefaultRaycastLayers);
+        for (int i = 0; i < colliders.Length; i++) {
+            if (colliders[i]) {
+                if (colliders[i].gameObject.layer.Equals(groundLayer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     void UpdateHorizontalMove() {
-        if (isGrounded) {
+        if (IsGrounded()) {
             float newHorizontal = Input.GetAxis("Horizontal");
 
             if (newHorizontal > 0 && !isFacingRight) {
@@ -50,8 +68,8 @@ public class PlayerController : MonoBehaviour, IDamageable {
     }
 
     void UpdateJumpState() {
-        if (Input.GetButtonDown("Jump") && isGrounded) {
-            rigidbody.AddForce(Vector2.up * 600f);
+        if (Input.GetButtonDown("Jump") && IsGrounded()) {
+            rigidbody.AddForce(Vector2.up * jumpForce);
         }
     }
     public int Hit(int damage) {
@@ -65,17 +83,5 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     public void Dead() {
         // TODO: Handle dead
-    }
-
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Ground")) {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Ground")) {
-            isGrounded = false;
-        }
     }
 }
