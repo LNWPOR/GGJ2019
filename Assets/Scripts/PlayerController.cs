@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-    private DamageableObject damageableObject;
-    public DamageableObject DamageableObjectRef
-    {
-        get
-        {
-            return this.damageableObject;
-        }
-        set
-        {
-            this.damageableObject = value;
-        }
-    }
+    private int hitpoint = 100;
+    public int Hitpoint { get; set; }
 
-   // Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
     
@@ -27,5 +17,21 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Update()
     {
         
+    }
+
+    public int Hit(int damage)
+    {
+        int remainingHP = this.hitpoint - damage;
+        this.hitpoint = remainingHP;
+        if (remainingHP <= 0)
+        {
+            this.Dead();
+        }
+        return remainingHP;
+    }
+
+    public void Dead()
+    {
+        // Handle dead
     }
 }
