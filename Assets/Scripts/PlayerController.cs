@@ -13,7 +13,6 @@ public class PlayerController: AttachableObject, IDamageable {
     private float jumpForce = 600f;
     private float turn;
     private bool isFacingRight = true;
-    private bool isGrounded = true;
     private const int MAX_GROUNED_COLLIDER_CHECK = 20;
     private Collider2D[] colliders = new Collider2D[20];
     void Start() {
