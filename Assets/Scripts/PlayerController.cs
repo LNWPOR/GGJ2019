@@ -51,6 +51,6 @@ public class PlayerController : MonoBehaviour, IDamageable {
     }
 
     public void Dead() {
-        // Handle dead
+        // TODO: Handle dead
     }
 }
