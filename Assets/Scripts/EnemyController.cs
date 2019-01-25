@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private int lifetime = 1500;
+    [SerializeField]
+    private float lifetime = 15f;
     private int healthPoint = 1;
+    private const float MinAngularVelocity = 30;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<Rigidbody>().AddTorque(new Vector3(0,0,60));
+        gameObject.GetComponent<Rigidbody2D>().AddTorque(60);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        lifetime -= 1;
+        lifetime -= Time.deltaTime;
         if (lifetime == 0) EnemyDie();
+        if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddTorque(60);
+        }
     }
 
     private void EnemyDie()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public void Damage()
