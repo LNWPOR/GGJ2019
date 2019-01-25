@@ -36,11 +36,4 @@ public class GameManager : MonoBehaviour
     _GameState = STATE.BossFight;
     Debug.Log("<color=orange>Now game is state : </color>" + _GameState);
   }
-
-  protected void Awake()
-  {
-    DoPlayerDead();
-    DoBossDead();
-    DoBossFight();
-  }
 }
