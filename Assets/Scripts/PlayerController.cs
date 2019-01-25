@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : AttachableObject, IDamageable
 {
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
