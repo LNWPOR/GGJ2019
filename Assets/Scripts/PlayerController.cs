@@ -9,42 +9,67 @@ public class PlayerController : MonoBehaviour, IDamageable {
     private Rigidbody2D rigidbody;
     [SerializeField]
     private float torqueSpeed = 10f;
+    [SerializeField]
+    private float jumpForce = 600f;
     private float turn;
     private bool isFacingRight = true;
-
+    private bool isGrounded = true;
+    private const int MAX_GROUNED_COLLIDER_CHECK = 20;
+    private Collider2D[] colliders = new Collider2D[20];
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
+        colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
     }
 
     void Update() {
-        updateHorizontalMove();
+        UpdateHorizontalMove();
+        UpdateJumpState();
     }
 
     void FixedUpdate() {
-        rigidbody.AddTorque(torqueSpeed * turn * -1);
-    }
 
-    void updateHorizontalMove() {
-        float newHorizontal = Input.GetAxis("Horizontal");
-
-        if (newHorizontal > 0 && !isFacingRight) {
-            changeMoveDirection();
-        } else if (newHorizontal < 0 && isFacingRight) {
-            changeMoveDirection();
+        if (IsGrounded()) {
+            rigidbody.AddTorque(torqueSpeed * turn * -1 * GameManager.GetInstance().GetSpeedMultipier());
         }
-
-        turn = newHorizontal;
     }
 
-    void changeMoveDirection() {
+    bool IsGrounded() {
+        int groundLayer = 8;
+        colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
+        PhysicsScene2D.OverlapCollider(GetComponent<Collider2D>(), colliders, Physics2D.DefaultRaycastLayers);
+        for (int i = 0; i < colliders.Length; i++) {
+            if (colliders[i]) {
+                if (colliders[i].gameObject.layer.Equals(groundLayer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void UpdateHorizontalMove() {
+        if (IsGrounded()) {
+            float newHorizontal = Input.GetAxis("Horizontal");
+
+            if (newHorizontal > 0 && !isFacingRight) {
+                ChangeMoveDirection();
+            } else if (newHorizontal < 0 && isFacingRight) {
+                ChangeMoveDirection();
+            }
+
+            turn = newHorizontal;
+        }
+    }
+
+    void ChangeMoveDirection() {
         rigidbody.velocity = new Vector2(0f, 0f);
         rigidbody.angularVelocity = 0f;
         isFacingRight = !isFacingRight;
     }
 
-    void updateJumpState() {
-        if (Input.GetButtonDown("Jump") && isGrouded()) {
-            rigidbody.AddForce(Vector2.up * 600f);
+    void UpdateJumpState() {
+        if (Input.GetButtonDown("Jump") && IsGrounded()) {
+            rigidbody.AddForce(Vector2.up * jumpForce);
         }
     }
     public int Hit(int damage) {
@@ -58,9 +83,5 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     public void Dead() {
         // TODO: Handle dead
-    }
-
-    bool isGrouded() {
-        return rigidbody.velocity.y == 0;
     }
 }

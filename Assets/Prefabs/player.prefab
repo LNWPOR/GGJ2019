@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40bb1d3457b90246b2e7af644f02ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torque: 10
+  torqueSpeed: 10
 --- !u!50 &8438912761630491243
 Rigidbody2D:
   serializedVersion: 4
