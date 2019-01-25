@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Hurt()
+    public void Damage()
     {
         healthPoint -= 1;
         if (healthPoint == 0) EnemyDie();
