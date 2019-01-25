@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     void FixedUpdate() {
         if (isGrounded) {
-            rigidbody.AddTorque(torqueSpeed * turn * -1);
+            rigidbody.AddTorque(torqueSpeed * turn * -1 * GameManager.GetInstance().GetSpeedMultipier());
         }
     }
 
