@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour, IDamageable {
     private Rigidbody2D rigidbody;
     [SerializeField]
     private float torqueSpeed = 10f;
+    [SerializeField]
+    private float jumpForce = 600f;
     private float turn;
     private bool isFacingRight = true;
     private bool isGrounded = true;
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamageable {
 
     void UpdateJumpState() {
         if (Input.GetButtonDown("Jump") && IsGrounded()) {
-            rigidbody.AddForce(Vector2.up * 600f);
+            rigidbody.AddForce(Vector2.up * jumpForce);
         }
     }
     public int Hit(int damage) {
