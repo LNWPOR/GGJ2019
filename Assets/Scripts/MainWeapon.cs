@@ -8,19 +8,25 @@ public class MainWeapon : Attacher
     public double speed = 10;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            this.Detach();
+        }
     }
 
     private void Shoot()
     {
 
     }
+
+
 }

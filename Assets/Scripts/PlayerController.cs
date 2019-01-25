@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable {
+public class PlayerController: AttachableObject, IDamageable {
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
 
@@ -51,6 +51,6 @@ public class PlayerController : MonoBehaviour, IDamageable {
     }
 
     public void Dead() {
-        // TODO: Handle dead
+        GameManager.GetInstance().DoPlayerDead();
     }
 }

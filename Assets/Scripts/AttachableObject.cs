@@ -9,7 +9,7 @@ public class AttachableObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log(this.name);
     }
 
     // Update is called once per frame
@@ -19,11 +19,11 @@ public class AttachableObject : MonoBehaviour
 
     public void AddAttacher(GameObject attacher)
     {
-        attachers.Add(attacher, 0);
+        this.attachers.Add(attacher, 0);
     }
 
     public void RemoveAttacher(GameObject attacher)
     {
-        attachers.Remove(attacher);
+        this.attachers.Remove(attacher);
     }
 }

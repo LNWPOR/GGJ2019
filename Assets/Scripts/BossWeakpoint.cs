@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossWeakpoint : MonoBehaviour, IDamageable
 {
-    private BossController boss;
+    public BossController boss;
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
 
@@ -34,6 +34,8 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
 
     public void Dead()
     {
-        // TODO: Handle dead
+        Debug.Log("Ded");
+        boss.RemoveWeakpoint(this);
+        Destroy(gameObject);
     }
 }

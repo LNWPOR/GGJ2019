@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossController : AttachableObject
 {
-    public Dictionary<GameObject, int> weakpoints = new Dictionary<GameObject, int>();
+    public List<BossWeakpoint> weakpoints;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class BossController : AttachableObject
         
     }
 
-    public void RemoveWeakpoint(GameObject weakpoint)
+    public void RemoveWeakpoint(BossWeakpoint weakpoint)
     {
         weakpoints.Remove(weakpoint);
         if (weakpoints.Count == 0)
@@ -29,6 +29,6 @@ public class BossController : AttachableObject
 
     private void Dead()
     {
-        // TODO: Handle dead
+        GameManager.GetInstance().DoBossDead();
     }
 }
