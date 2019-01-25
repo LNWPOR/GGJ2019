@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damageable : MonoBehaviour
+public class DamageableObject : MonoBehaviour
 {
     private int hitpoint = 100;
+
+    public DamageableObject(int hp)
+    {
+        this.hitpoint = hp;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +37,15 @@ public class Damageable : MonoBehaviour
     private void Dead ()
     {
         
+    }
+}
+
+
+public interface IDamageable
+{
+    DamageableObject DamageableObjectRef
+    {
+        get;
+        set;
     }
 }
