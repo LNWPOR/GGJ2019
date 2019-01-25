@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
         IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             damageable != null &&
-            (collision.gameObject.tag == "Player" &&this.bulletType == BULLET_TYPE.ENEMY) ||
+            (collision.gameObject.tag == "Player" && this.bulletType == BULLET_TYPE.ENEMY) ||
             (collision.gameObject.tag == "Enemy" && this.bulletType == BULLET_TYPE.PLAYER)
         ) {
             damageable.Hit(this.damage);
