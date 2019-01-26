@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private float lifetime = 15f;
-    [SerializeField]
-    private int healthPoint = 1;
+    private int hitpoint = 100;
+    public int Hitpoint { get; set; }
     [SerializeField]
     private float MinAngularVelocity = 20;
     [SerializeField]
@@ -25,22 +25,23 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         lifetime -= Time.deltaTime;
-        if (lifetime == 0) EnemyDie();
+        if (lifetime == 0) Dead();
         if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
         {
             gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
         }
     }
 
-    private void EnemyDie()
+    public void Dead()
     {
         Destroy(gameObject);
     }
 
-    public void Damage()
+    public int Hit(int damage)
     {
-        healthPoint -= 1;
-        if (healthPoint == 0) EnemyDie();
+        hitpoint -= damage;
+        if (hitpoint <= 0) Dead();
+        return hitpoint;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
