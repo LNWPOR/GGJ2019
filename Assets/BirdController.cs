@@ -2,34 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamageable
+public class BirdController : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    private float lifetime = 15f;
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
     [SerializeField]
-    private float MinAngularVelocity = 20;
-    [SerializeField]
-    private float torque = 20f;
+    private float Velocity = 20f;
     [SerializeField]
     private int damage = 100;
+    [SerializeField]
+    private float targetTime = 3;
+    [SerializeField]
+    private float RotationSpeed = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0) Dead();
-        if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
+        targetTime -= Time.deltaTime;
+        Vector3 moveDirection = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
+        if (moveDirection != Vector3.zero)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            if (Mathf.Abs(angle) > RotationSpeed) angle = angle / Mathf.Abs(angle) * RotationSpeed;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+        if (targetTime <= 0)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(moveDirection.x * Velocity, moveDirection.y * Velocity));
         }
     }
 
