@@ -281,6 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204475518}
+  - component: {fileID: 204475519}
   - component: {fileID: 204475517}
   - component: {fileID: 204475516}
   m_Layer: 0
@@ -348,12 +349,40 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204475515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -1.7, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &204475519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204475515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0880ef7f23cbd14cbec65fc8af7ca01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 418941330}
+  rotationPoint: {fileID: 347156785}
+  followDelay: 0.07
+  isEnableRotation: 1
+--- !u!4 &347156785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2276510369451331500, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 910681025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &418941330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6071978107860774466, guid: 5cc1b5550147de644aaad14e2522476c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6071978107923874378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &910681025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -369,12 +398,12 @@ PrefabInstance:
     - target: {fileID: 2276510369451331500, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2276510369451331500, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.43
+      value: 25.6
       objectReference: {fileID: 0}
     - target: {fileID: 2276510369451331500, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}

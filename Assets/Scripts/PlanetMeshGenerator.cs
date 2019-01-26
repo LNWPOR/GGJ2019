@@ -6,6 +6,9 @@ using UnityEditor;
 [CustomEditor(typeof(PlanetMeshGenerator))]
 public class PlanetMeshGeneratorCustomEditor : Editor
 {
+    //  -----
+    //  private member
+    //  -----
     private PlanetMeshGenerator targetPlanetMeshGenerator;
     
     public void OnEnable()
@@ -55,8 +58,11 @@ public class PlanetMeshGenerator : MonoBehaviour
     //  -----
     //  member function
     //  -----
-    /* overide */
     
+    public void OnEnable()
+    {
+        this.randomSeed();
+    }
 
     public void randomSeed()
     {
