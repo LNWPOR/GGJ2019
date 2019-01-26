@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager {
     private static GameManager _Instance;
     public GameObject planet;
+
+    public GameObject GetPlanet() {
+        if (!planet) {
+            planet = GameObject.Find("Planet"); ;
+        }
+        return planet;
+
+    }
+
     public static GameManager GetInstance() {
         if (_Instance == null) _Instance = new GameManager();
         return _Instance;

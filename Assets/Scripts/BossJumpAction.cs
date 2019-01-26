@@ -41,7 +41,7 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     public IEnumerator CheckMoveUpEnd() {
-        GameObject planet = GameManager.GetInstance().planet;
+        GameObject planet = GameManager.GetInstance().GetPlanet();
         Vector3 destination = new Vector3((boss.transform.position.x - planet.transform.position.x) * 2, (boss.transform.position.y - planet.transform.position.y) * 2, startPoint.z);
         Debug.Log(Vector2.Distance(boss.transform.position, destination));
         while (!moveUpFinish) {
