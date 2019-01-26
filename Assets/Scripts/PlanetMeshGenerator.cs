@@ -1,6 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(PlanetMeshGenerator))]
+public class PlanetMeshGeneratorCustomEditor : Editor
+{
+    private PlanetMeshGenerator targetPlanetMeshGenerator;
+    
+    public void OnEnable()
+    {
+        targetPlanetMeshGenerator = (PlanetMeshGenerator)target;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        if (GUILayout.Button("Random Seed"))
+        {
+            Debug.Log("random seed");
+            targetPlanetMeshGenerator.randomSeed();
+        }
+
+        if (GUILayout.Button("Generate Planet"))
+        {
+            Debug.Log("gen planet");
+            targetPlanetMeshGenerator.startGenPlanetMeshProcess();
+        }
+    }
+    
+}
 
 public class PlanetMeshGenerator : MonoBehaviour
 {
@@ -12,7 +42,7 @@ public class PlanetMeshGenerator : MonoBehaviour
     public float terrainFluctuationMagnitude = 3;
     public float terrainFluctuationLength = 2;
     public Material material;
-
+    
     //  -----
     //  private member
     //  -----
@@ -26,16 +56,25 @@ public class PlanetMeshGenerator : MonoBehaviour
     //  member function
     //  -----
     /* overide */
-    private void Start()
+    
+
+    public void randomSeed()
     {
+        //  Random new seed
         perlinSeed = Random.Range(0.0f, 10000.0f);
 
+        //  Update planet
+        this.startGenPlanetMeshProcess();
+    }
+
+    public void startGenPlanetMeshProcess()
+    {
         /*
          * Note: We should probably change to generate only at the start of the game but since it's testing
          * I'll just put it here so we can play around
          */
         //  Generate planet mesh
-        genPlanetMesh();
+        this.genPlanetMesh();
         
         //  Set mesh data 
         mesh = new Mesh();
@@ -50,7 +89,7 @@ public class PlanetMeshGenerator : MonoBehaviour
         GetComponent<MeshRenderer>().material = material;
     }
 
-    void genPlanetMesh()
+    private void genPlanetMesh()
     {
         //
         //  Set up parameters
@@ -66,8 +105,8 @@ public class PlanetMeshGenerator : MonoBehaviour
 
         //  Clear verticies buffer
         verticies.Clear();
-        //  Append center of transform as the origin
-        verticies.Add(transform.position);
+        //  Append center of transform as the origin in local space
+        verticies.Add(new Vector3(0, 0, 0));
 
         //  Generate mesh in full circle
         /*
@@ -81,10 +120,12 @@ public class PlanetMeshGenerator : MonoBehaviour
             float terrainHeight = radius 
                                     + terrainFluctuationMagnitude * Mathf.PerlinNoise(accumulatedAngle * terrainFluctuationLength, perlinSeed);
 
-            Vector3 surfacePosition = transform.position + dirToSurface * terrainHeight;
+            Vector3 surfacePosition = dirToSurface * terrainHeight;
 
+            //  Add generated point to vertex array
             verticies.Add(surfacePosition);
 
+            //  Add generated point to collider mesh vertex array
             colliderVerticies.Add( new Vector2(surfacePosition.x, surfacePosition.y) );
 
             accumulatedAngle -= radianStepSize;
