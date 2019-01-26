@@ -7,16 +7,18 @@ public class BossSummonerBird : ActionBased
 {
     private readonly float actionTime;
     public GameObject prefab;
+    private Vector2 position;
 
-    public BossSummonerBird(float actionTime = 1f)
+    public BossSummonerBird( Vector2 position, float actionTime = 1f)
     {
         this.actionTime = actionTime;
+        this.position = position;
     }
 
     public override void Start()
     {
         GameObject Bird = Helper.CreateObject("Bird");
-        Bird.transform.position = new Vector2(0.3f, 4);
+        Bird.transform.position = this.position;
         Bird.GetComponent<BirdController>().EventReturn = OnActionTimeEnd;
     }
 

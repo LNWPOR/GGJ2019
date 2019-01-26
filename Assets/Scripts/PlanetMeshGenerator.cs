@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PlanetMeshGenerator))]
 public class PlanetMeshGeneratorCustomEditor : Editor
 {
@@ -34,6 +35,7 @@ public class PlanetMeshGeneratorCustomEditor : Editor
     }
     
 }
+#endif
 
 public class PlanetMeshGenerator : MonoBehaviour
 {
@@ -51,8 +53,9 @@ public class PlanetMeshGenerator : MonoBehaviour
     //  -----
     private Mesh mesh;
     private List<Vector3> verticies = new List<Vector3>();
-    private List<int> indicies = new List<int>();
+    private List<Vector2> textureCoordinates = new List<Vector2>();
     private List<Vector2> colliderVerticies = new List<Vector2>();
+    private List<int> indicies = new List<int>();
     float perlinSeed;
 
     //  -----
@@ -62,6 +65,12 @@ public class PlanetMeshGenerator : MonoBehaviour
     public void OnEnable()
     {
         this.randomSeed();
+    }
+
+    public void Update()
+    {
+        //  Update material uniform
+        material.SetVector("_CoreCenter", new Vector4(this.transform.position.x, this.transform.position.y));
     }
 
     public void randomSeed()
@@ -86,6 +95,7 @@ public class PlanetMeshGenerator : MonoBehaviour
         mesh = new Mesh();
         mesh.vertices = verticies.ToArray();
         mesh.triangles = indicies.ToArray();
+        mesh.SetUVs(0, textureCoordinates);
 
         //  Send data to components
         GetComponent<MeshFilter>().mesh = mesh;
@@ -114,6 +124,14 @@ public class PlanetMeshGenerator : MonoBehaviour
         //  Append center of transform as the origin in local space
         verticies.Add(new Vector3(0, 0, 0));
 
+        //  Clear UV
+        textureCoordinates.Clear();
+        //  Append center of UV as the origin in local space
+        textureCoordinates.Add(new Vector2(0, 0));
+
+        //  Clear collider verticies
+        colliderVerticies.Clear();
+
         //  Generate mesh in full circle
         /*
          * Note: Since Unity coordinate system is left-handed (clockwise) but Math function coordinate system is right-handed
@@ -124,12 +142,16 @@ public class PlanetMeshGenerator : MonoBehaviour
             Vector3 dirToSurface = new Vector3(Mathf.Cos(accumulatedAngle), Mathf.Sin(accumulatedAngle));
             
             float terrainHeight = radius 
-                                    + terrainFluctuationMagnitude * Mathf.PerlinNoise(accumulatedAngle * terrainFluctuationLength, perlinSeed);
+                                    + terrainFluctuationMagnitude * ( Mathf.PerlinNoise(accumulatedAngle * terrainFluctuationLength, perlinSeed) * 2 - 1 );
 
             Vector3 surfacePosition = dirToSurface * terrainHeight;
 
             //  Add generated point to vertex array
             verticies.Add(surfacePosition);
+
+            //  Add texture coordinate
+            textureCoordinates.Add(new Vector2( - accumulatedAngle / ( 2 * Mathf.PI )
+                                                , 1));
 
             //  Add generated point to collider mesh vertex array
             colliderVerticies.Add( new Vector2(surfacePosition.x, surfacePosition.y) );
@@ -155,5 +177,6 @@ public class PlanetMeshGenerator : MonoBehaviour
             //  Next index
             indicies.Add( (index % numOfVerticies) + 1 );
         }
+
     }
 }
