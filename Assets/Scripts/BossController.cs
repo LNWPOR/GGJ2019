@@ -6,7 +6,6 @@ public class BossController : AttachableObject {
     public List<BossWeakpoint> weakpoints;
     private List<ActionBased> actionList;
     private AutoQueue _BossMainQueue = new AutoQueue();
-
     // Start is called before the first frame update
     void Start() {
         actionList = GenerateActionList();
