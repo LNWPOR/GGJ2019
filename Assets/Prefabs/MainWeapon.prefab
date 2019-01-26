@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1190701ce40142aa96637d6cd898f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  speed: 10
+  damage: 50
+  speed: 40
+  bulletPrefab: {fileID: 1657688925792224213, guid: 8b8435c5bb2514efca272e2d083790ef,
+    type: 3}
 --- !u!212 &3477829781548324616
 SpriteRenderer:
   m_ObjectHideFlags: 0

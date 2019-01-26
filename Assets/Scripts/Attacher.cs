@@ -4,52 +4,56 @@ using UnityEngine;
 
 public class Attacher: MonoBehaviour
 {
-    private AttachableObject attachedObject;
-    private float cooldown;
+    protected AttachableObject attachedObject;
+    private float attachCooldown;
 
     // Start is called before the first frame update
    public void Start()
     {
-        Debug.Log(this.name);
+
     }
 
     // Update is called once per frame
    public void Update()
     {
-        if (this.cooldown > 0f)
+        if (attachCooldown > 0f)
         {
-            this.cooldown -= Time.deltaTime;
+            attachCooldown -= Time.deltaTime;
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (this.attachedObject == null && collision.gameObject.GetComponent<AttachableObject>() != null && this.cooldown < 0.001f)
+        if (attachedObject == null && collision.gameObject.GetComponent<AttachableObject>() != null && attachCooldown < 0.001f)
         {
             AttachableObject collidedObject = collision.gameObject.GetComponent<AttachableObject>();
-            this.attachedObject = collidedObject;
+            attachedObject = collidedObject;
             collidedObject.AddAttacher(gameObject);
+            Vector3 collidedPos = collision.transform.position;
+            Vector2 contactPos = collision.contacts[0].point;
+            Collider2D c2D = gameObject.GetComponent<Collider2D>();
+            c2D.enabled = false;
             Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
             r2D.simulated = false;
-            foreach (ContactPoint2D contactPoint2D in collision.contacts)
-            {
-                transform.SetParent(collidedObject.transform);
-                transform.position = new Vector3(
-                    contactPoint2D.point.x,
-                    contactPoint2D.point.y
-                );
-           }
+            Vector3 v = new Vector3(contactPos.x - collidedPos.x, contactPos.y - collidedPos.y);
+            float angle = Vector3.Angle(Vector3.left, v);
+            transform.SetParent(collidedObject.transform);
+            transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+            transform.localPosition = new Vector3(
+                collidedPos.x - contactPos.x,
+                collidedPos.y - contactPos.y
+            );
         }
     }
 
     protected void Detach()
     {
-        if (this.attachedObject == null) return;
-        this.attachedObject.RemoveAttacher(gameObject);
-        this.attachedObject = null;
+        if (attachedObject == null) return;
+        attachedObject.RemoveAttacher(gameObject);
+        attachedObject = null;
         transform.SetParent(null);
         Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
         r2D.simulated = true;
-        this.cooldown = 3f;
+        attachCooldown = 3f;
     }
 }
