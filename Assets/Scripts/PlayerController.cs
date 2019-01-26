@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : AttachableObject, IDamageable
 {
@@ -17,6 +18,8 @@ public class PlayerController : AttachableObject, IDamageable
     private float torqueSpeed = 10f;
     [SerializeField]
     private float jumpForce = 800f;
+    [SerializeField]
+    private Image lifeImage;
     private float turn;
     private bool isFacingRight = true;
     private const int MAX_GROUNED_COLLIDER_CHECK = 20;
@@ -101,6 +104,9 @@ public class PlayerController : AttachableObject, IDamageable
     {
         if (attachers.Count > 0) return;
         lifetime -= Time.deltaTime;
+        float frac = lifetime / LIFETIME;
+        lifeImage.fillAmount = frac;
+        lifeImage.color = new Color(1f - frac, (frac) + 0f*(1f-frac) , (frac) + 0f * (1f-frac));
         if (lifetime <= 0f)
         {
             Dead();
