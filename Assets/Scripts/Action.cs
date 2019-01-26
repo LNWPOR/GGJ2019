@@ -5,114 +5,114 @@ using UnityEngine;
 public delegate void ActionEndEvent();
 public interface IAction
 {
-    void Start();
-    void AddEndEvent(ActionEndEvent endEventListener);
+  void Start();
+  void AddEndEvent(ActionEndEvent endEventListener);
 }
 
 public abstract class ActionBased : IAction
 {
-    private ActionEndEvent listener;
-    public void AddEndEvent(ActionEndEvent endEventListener)
-    {
-        listener += endEventListener;
-    }
+  private ActionEndEvent listener;
+  public void AddEndEvent(ActionEndEvent endEventListener)
+  {
+    listener += endEventListener;
+  }
 
-    public void InvokeEndEvent()
-    {
-        listener?.Invoke();
-    }
+  public void InvokeEndEvent()
+  {
+    listener?.Invoke();
+  }
 
-    abstract public void Start();
+  abstract public void Start();
 }
 
 public class GroupAction : ActionBased
 {
-    private readonly IAction[] actionGroup;
-    private int CountCallEnd = 0;
+  private readonly IAction[] actionGroup;
+  private int CountCallEnd = 0;
 
-    public GroupAction(IAction[] actionGroup)
+  public GroupAction(IAction[] actionGroup)
+  {
+    this.actionGroup = actionGroup;
+    for (int i = 0; i < actionGroup.Length; ++i)
     {
-        this.actionGroup = actionGroup;
-        for (int i = 0; i < actionGroup.Length; ++i)
-        {
-            actionGroup[i].AddEndEvent(NotifyEnd);
-        }
+      actionGroup[i].AddEndEvent(NotifyEnd);
     }
+  }
 
-    private void NotifyEnd()
-    {
-        ++CountCallEnd;
-        if (CountCallEnd == actionGroup.Length) InvokeEndEvent();
-    }
+  private void NotifyEnd()
+  {
+    ++CountCallEnd;
+    if (CountCallEnd == actionGroup.Length) InvokeEndEvent();
+  }
 
-    public override void Start()
+  public override void Start()
+  {
+    for (int i = 0; i < actionGroup.Length; ++i)
     {
-        for (int i = 0; i < actionGroup.Length; ++i)
-        {
-            actionGroup[i].Start();
-        }
+      actionGroup[i].Start();
     }
+  }
 }
 
 public class QueueAction : ActionBased
 {
-    private readonly Queue<IAction> queue = new Queue<IAction>();
+  private readonly Queue<IAction> queue = new Queue<IAction>();
 
-    private void RunNextAction()
+  private void RunNextAction()
+  {
+    if (queue.Count > 0)
     {
-        if (queue.Count > 0)
-        {
-            var action = queue.Dequeue();
-            action.Start();
-        }
-        else
-        {
-            InvokeEndEvent();
-        }
+      var action = queue.Dequeue();
+      action.Start();
     }
+    else
+    {
+      InvokeEndEvent();
+    }
+  }
 
-    public void AddAction(IAction action)
-    {
-        action.AddEndEvent(RunNextAction);
-        queue.Enqueue(action);
-    }
+  public void AddAction(IAction action)
+  {
+    action.AddEndEvent(RunNextAction);
+    queue.Enqueue(action);
+  }
 
-    public override void Start()
-    {
-        RunNextAction();
-    }
+  public override void Start()
+  {
+    RunNextAction();
+  }
 }
 
 public class AutoQueue
 {
-    private Queue<IAction> actionQueue = new Queue<IAction>();
+  private Queue<IAction> actionQueue = new Queue<IAction>();
 
-    private void RunNextAction()
+  private void RunNextAction()
+  {
+    if (actionQueue.Count > 0)
     {
-        if (actionQueue.Count > 0)
-        {
-            var action = actionQueue.Peek();
-            action.Start();
-        }
+      var action = actionQueue.Peek();
+      action.Start();
     }
+  }
 
-    private void OnFinish()
-    {
-        actionQueue.Dequeue();
-        RunNextAction();
-    }
+  private void OnFinish()
+  {
+    actionQueue.Dequeue();
+    RunNextAction();
+  }
 
-    public void AddAction(IAction action)
+  public void AddAction(IAction action)
+  {
+    action.AddEndEvent(OnFinish);
+    if (actionQueue.Count == 0)
     {
-        action.AddEndEvent(OnFinish);
-        if (actionQueue.Count == 0)
-        {
-            actionQueue.Enqueue(action);
-            RunNextAction();
-        }
-        else
-        {
-            actionQueue.Enqueue(action);
-        }
+      actionQueue.Enqueue(action);
+      RunNextAction();
     }
+    else
+    {
+      actionQueue.Enqueue(action);
+    }
+  }
 }

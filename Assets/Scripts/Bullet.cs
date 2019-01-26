@@ -57,11 +57,12 @@ public class Bullet : MonoBehaviour
             damageable != null &&
             (collider.gameObject.tag == "Player" && bulletType == BULLET_TYPE.ENEMY) ||
             (collider.gameObject.tag == "Enemy" && bulletType == BULLET_TYPE.PLAYER)
-        ) {
-            Debug.Log("Hit!" + collider.gameObject.name);
+        )
+        {
             damageable.Hit(damage);
             DestroyBullet();
-        } else if (damageable == null)
+        }
+        else if (damageable == null)
         {
             DestroyBullet();
         }
