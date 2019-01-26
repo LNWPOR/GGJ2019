@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossJumpAction : ActionBased {
 
-    public GameObject boss;
+    private GameObject boss;
     GameObject bossJumpHelperObject;
     public BossJumpAction(GameObject boss) {
         this.boss = boss;
