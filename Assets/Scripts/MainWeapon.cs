@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MainWeapon : Attacher
 {
-    const float COOLDOWN = 2f;
+    const float COOLDOWN = 0.5f;
 
     [SerializeField]
     private int damage;
