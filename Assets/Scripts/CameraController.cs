@@ -14,11 +14,21 @@ public class CameraController : MonoBehaviour
     public float followDelay = 0.07f;
 
     public bool isEnableRotation;
-    
 
+    public Transform cameraObject;
+
+    public float shakeAmount = 0.7f;
+
+    public float shakeDecayRate = 3.0f;
+    
     // Update is called once per frame
     void Update()
     {
+        if( Input.GetKeyDown(KeyCode.J) )
+        {
+            StartCoroutine(this.Shake( shakeAmount, shakeDecayRate ));
+        }
+
         //  If has no follow target then simply do nothing
         if (followTarget == null)
             return;
@@ -58,5 +68,27 @@ public class CameraController : MonoBehaviour
                 this.transform.rotation = quarternion;
             }
         }
+    }
+
+    public IEnumerator Shake ( float shakeAmount, float shakeDecayRate )
+    {
+        if (cameraObject == null)
+            yield break;
+
+        Vector3 originalPos = cameraObject.localPosition;
+        
+        while(shakeAmount > 0 )
+        {
+            Vector2 shake = Random.insideUnitCircle * shakeAmount;
+
+            cameraObject.localPosition = originalPos + new Vector3(shake.x, shake.y, 0);
+
+
+            shakeAmount -= shakeDecayRate * Time.deltaTime;
+            yield return null;
+        }
+
+        cameraObject.localPosition = originalPos;
+        
     }
 }
