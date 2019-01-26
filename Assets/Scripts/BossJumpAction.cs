@@ -12,7 +12,7 @@ public class BossJumpAction : ActionBased {
         this.isTurn = isTurn;
     }
     public override void Start() {
-        bossJumpHelperObject = new GameObject();
+        bossJumpHelperObject = new GameObject("bossJumpHelperObject");
         bossJumpHelperObject.AddComponent<BossJumpActionHelper>();
         bossJumpHelperObject.GetComponent<BossJumpActionHelper>().WaitJumpingEnd(OnJumpingEnd, boss, isTurn);
     }
@@ -41,7 +41,7 @@ class BossJumpActionHelper : MonoBehaviour {
 
     private void OnTimerEnd() {
         action?.Invoke();
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
     }
 
     public IEnumerator CheckMoveUpEnd() {
