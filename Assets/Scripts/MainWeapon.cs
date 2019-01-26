@@ -40,6 +40,7 @@ public class MainWeapon : Attacher
 
     private void Shoot()
     {
+        if (attachedObject == null) return;
         GameObject spawnedBullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         Bullet bullet = spawnedBullet.GetComponent<Bullet>();
         bullet.speed = speed;

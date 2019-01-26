@@ -36,16 +36,11 @@ public class Bullet : MonoBehaviour
         float angle = transform.rotation.eulerAngles.z;
         var vForce = Quaternion.AngleAxis(angle, Vector3.forward) * Vector3.right;
         to = from + (vForce.normalized * DISTANCE);
-        Debug.Log("from: " + from);
-        Debug.Log("to: " + to);
-        Debug.Log("travelTime: " + travelTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("DISTANCE: " + DISTANCE);
-        Debug.Log("speed: " + speed);
         travelTime = DISTANCE / speed;
         time += Time.deltaTime;
         transform.position = Vector3.Lerp(from, to, time / travelTime);

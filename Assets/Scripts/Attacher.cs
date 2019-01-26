@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attacher: MonoBehaviour
 {
-    private AttachableObject attachedObject;
+    protected AttachableObject attachedObject;
     private float attachCooldown;
 
     // Start is called before the first frame update
@@ -29,17 +29,20 @@ public class Attacher: MonoBehaviour
             AttachableObject collidedObject = collision.gameObject.GetComponent<AttachableObject>();
             attachedObject = collidedObject;
             collidedObject.AddAttacher(gameObject);
+            Vector3 collidedPos = collision.transform.position;
+            Vector2 contactPos = collision.contacts[0].point;
+            Collider2D c2D = gameObject.GetComponent<Collider2D>();
+            c2D.enabled = false;
             Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
             r2D.simulated = false;
-            ContactPoint2D contact = collision.contacts[0];
+            Vector3 v = new Vector3(contactPos.x - collidedPos.x, contactPos.y - collidedPos.y);
+            float angle = Vector3.Angle(Vector3.left, v);
             transform.SetParent(collidedObject.transform);
-            transform.position = new Vector3(
-                contact.point.x,
-                contact.point.y
+            transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+            transform.localPosition = new Vector3(
+                collidedPos.x - contactPos.x,
+                collidedPos.y - contactPos.y
             );
-            Vector3 v = new Vector3(contact.point.x - collision.transform.position.x, contact.point.y - collision.transform.position.y);
-            float angle = Vector3.Angle(Vector3.right, v);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
