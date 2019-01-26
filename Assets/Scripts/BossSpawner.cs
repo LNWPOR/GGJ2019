@@ -7,7 +7,8 @@ public class BossSpawner : MonoBehaviour {
     void Update() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length.Equals(0)) {
-            Instantiate(bossPrefab, transform.position, Quaternion.identity);
+            GameObject boss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
+            boss.name = "Boss";
             Destroy(gameObject);
         }
     }
