@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController: AttachableObject, IDamageable {
+public class PlayerController : AttachableObject, IDamageable {
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
 
@@ -10,7 +10,7 @@ public class PlayerController: AttachableObject, IDamageable {
     [SerializeField]
     private float torqueSpeed = 10f;
     [SerializeField]
-    private float jumpForce = 600f;
+    private float jumpForce = 800f;
     private float turn;
     private bool isFacingRight = true;
     private const int MAX_GROUNED_COLLIDER_CHECK = 20;
@@ -68,7 +68,9 @@ public class PlayerController: AttachableObject, IDamageable {
 
     void UpdateJumpState() {
         if (Input.GetButtonDown("Jump") && IsGrounded()) {
-            rigidbody.AddForce(Vector2.up * jumpForce);
+            GameObject planet = GameManager.GetInstance().planet;
+            Vector3 jumpDirection = new Vector2((transform.position.x - planet.transform.position.x), (transform.position.y - planet.transform.position.y));
+            rigidbody.AddForce(jumpDirection * jumpForce);
         }
     }
     public int Hit(int damage) {

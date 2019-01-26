@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PlanetMeshGenerator))]
 public class PlanetMeshGeneratorCustomEditor : Editor
 {
@@ -34,6 +35,7 @@ public class PlanetMeshGeneratorCustomEditor : Editor
     }
     
 }
+#endif
 
 public class PlanetMeshGenerator : MonoBehaviour
 {
