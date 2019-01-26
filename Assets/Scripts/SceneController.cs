@@ -16,14 +16,17 @@ public class SceneController : MonoBehaviour
     private Image _FadeImage;
     [SerializeField]
     private Text _GreetText;
+    [SerializeField]
+    private GameObject _Canvas;
     // Start is called before the first frame update
     void Start()
     {
+        _Canvas.SetActive(true);
         StartCoroutine(DoScaleUpText(() =>
         {
             StartCoroutine(DoFade(()=> 
             {}));
-            StartCoroutine(DoZoom());
+            StartCoroutine(DoZoom(() => { Destroy(_Canvas); }));
         }));
     }
 
@@ -57,7 +60,7 @@ public class SceneController : MonoBehaviour
         callback();
     }
 
-    IEnumerator DoZoom()
+    IEnumerator DoZoom(System.Action callback)
     {
         _Camera.GetComponent<CameraController>().enabled = true;
         float time = 0f;
@@ -70,5 +73,6 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
         Camera.main.orthographicSize = 20f;
+        callback();
     }
 }
