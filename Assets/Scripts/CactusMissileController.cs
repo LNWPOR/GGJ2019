@@ -24,7 +24,7 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void FixedUpdate()
     {
-        LifeTime -= Time.deltaTime;
+        //LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) Dead();
     }
 

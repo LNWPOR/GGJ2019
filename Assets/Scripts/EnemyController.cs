@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField]
     private float MinAngularVelocity = 20;
     [SerializeField]
-    private float torque = 20f;
+    private float torque = 50f;
     [SerializeField]
     private int damage = 100;
 
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void FixedUpdate()
     {
-        lifetime -= Time.deltaTime;
+        //lifetime -= Time.deltaTime;
         if (lifetime <= 0) Dead();
         if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
         {
