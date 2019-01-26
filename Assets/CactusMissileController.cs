@@ -2,35 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamageable
+public class CactusMissileController : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    private float lifetime = 15f;
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
     [SerializeField]
-    private float MinAngularVelocity = 20;
-    [SerializeField]
-    private float torque = 20f;
+    private float VelocityX = 10;
     [SerializeField]
     private int damage = 100;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(VelocityX, 0);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0) Dead();
-        if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
-        {
-            gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
-        }
+
     }
 
     public void Dead()

@@ -6,6 +6,8 @@ public class BossController : AttachableObject
 {
     public List<BossWeakpoint> weakpoints;
 
+    private AutoQueue _BossMainQueue = new AutoQueue();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class BossController : AttachableObject
     // Update is called once per frame
     void Update()
     {
-        
+        _BossMainQueue.AddAction(new TestAction());
     }
 
     public void RemoveWeakpoint(BossWeakpoint weakpoint)
