@@ -61,7 +61,7 @@ class BossWalkActionHelper : MonoBehaviour {
         //Vector2 ninetyDegrees = Vector2.Perpendicular(between);
         //Vector3 destination = ninetyDegrees * 2;
         //destination.z = startPoint.z;
-        if (rotationParentObject.transform.localScale.x > 0) {
+        if (boss.transform.localScale.x > 0) {
             //    destination *= -1;
             moveSpeed *= -1;
         }
