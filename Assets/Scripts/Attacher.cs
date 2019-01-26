@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Attacher: MonoBehaviour
 {
     protected AttachableObject attachedObject;
@@ -31,22 +33,12 @@ public class Attacher: MonoBehaviour
             collidedObject.AddAttacher(gameObject);
             transform.SetParent(collidedObject.transform);
 
-            Vector3 collidedPos = collision.transform.position;
-            Vector2 contactPos = collision.contacts[0].point;
-            Collider2D c2D = gameObject.GetComponent<Collider2D>();
-            c2D.enabled = false;
+            ContactPoint2D contact = collision.contacts[0];
+            Vector2 direction = new Vector2(contact.point.x - collision.gameObject.transform.position.x, contact.point.y - collision.gameObject.transform.position.y);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
             r2D.simulated = false;
-            Vector3 collidedRot = collision.transform.rotation.eulerAngles;
-            float collidedAngle = -collidedRot.z;
-            Vector3 localPos = new Vector3(
-                collidedPos.x - contactPos.x,
-                collidedPos.y - contactPos.y
-            );
-            float contactAngle = Vector3.Angle(Vector3.up, localPos);
-            Vector3 localPosRotated = Quaternion.Euler(0, 0, collidedAngle) * localPos;
-            transform.localPosition = localPosRotated;
-            transform.localRotation = Quaternion.AngleAxis(contactAngle - collidedAngle, new Vector3(0, 0, 1));
         }
     }
 
