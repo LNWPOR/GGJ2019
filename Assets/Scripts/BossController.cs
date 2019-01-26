@@ -10,18 +10,11 @@ public class BossController : AttachableObject {
     void Start() {
         actionList = GenerateActionList();
         UpdateBossRotation();
-        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
-        //_BossMainQueue.AddAction(new BossJumpAction(gameObject, true));
-        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
-        //_BossMainQueue.AddAction(new BossJumpAction(gameObject, true));
         //_BossMainQueue.AddAction(new GroupAction(new IAction[] { new BossWalkAction(gameObject) }));
-        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
     }
 
     // Update is called once per frame
     void Update() {
-        //_BossMainQueue.AddAction(new BossSummonerCactus(new Vector2(-10, 0), new Vector2(5, 0)));
-        //_BossMainQueue.AddAction(new BossSummonerBird(new Vector2(0.3f, 4)));
         if (_BossMainQueue.GetQueue().Count.Equals(0)) {
             actionList = GenerateActionList();
             _BossMainQueue.AddAction(actionList[Random.Range(0, actionList.Count)]);
@@ -32,7 +25,9 @@ public class BossController : AttachableObject {
         return new List<ActionBased>() {
             new BossWalkAction(gameObject),
             new BossJumpAction(gameObject, true),
-            new BossJumpAction(gameObject)
+            new BossJumpAction(gameObject),
+            new BossSummonerCactus(new Vector2(-10, 0), new Vector2(5, 0)),
+            new BossSummonerBird(new Vector2(0.3f, 4))
         };
     }
 
