@@ -10,16 +10,22 @@ public class BossController : AttachableObject {
     // Start is called before the first frame update
     void Start() {
         UpdateBossRotation();
-
-        _BossMainQueue.AddAction(new BossJumpAction(gameObject));
-        _BossMainQueue.AddAction(new BossWalkAction(gameObject));
+        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
+        //_BossMainQueue.AddAction(new BossJumpAction(gameObject, true));
+        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
+        //_BossMainQueue.AddAction(new BossJumpAction(gameObject, true));
+        //_BossMainQueue.AddAction(new GroupAction(new IAction[] { new BossWalkAction(gameObject) }));
+        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
     }
 
     // Update is called once per frame
     void Update() {
-        _BossMainQueue.AddAction(new BossSummonerCactus(new Vector2(-10, 0), new Vector2(5, 0)));
-        _BossMainQueue.AddAction(new BossSummonerBird(new Vector2(0.3f, 4)));
+        //_BossMainQueue.AddAction(new BossSummonerCactus(new Vector2(-10, 0), new Vector2(5, 0)));
+        //_BossMainQueue.AddAction(new BossSummonerBird(new Vector2(0.3f, 4)));
+        _BossMainQueue.AddAction(new BossJumpAction(gameObject));
     }
+
+
 
     void UpdateBossRotation() {
         GameObject planet = GameManager.GetInstance().GetPlanet();

@@ -6,18 +6,29 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Attacher : MonoBehaviour
 {
+    const float LIFETIME = 3f;
+
+    public float lifetime;
     protected AttachableObject attachedObject;
     private float attachCooldown;
 
     // Start is called before the first frame update
     public void Start()
     {
-
+        lifetime = LIFETIME;
     }
 
     // Update is called once per frame
     public void Update()
     {
+        if (attachedObject != null)
+        {
+            lifetime -= Time.deltaTime;
+            if (lifetime <= 0f)
+            {
+                Detach();
+            }
+        }
         if (attachCooldown > 0f)
         {
             attachCooldown -= Time.deltaTime;
@@ -42,14 +53,15 @@ public class Attacher : MonoBehaviour
         }
     }
 
-    protected void Detach()
+    public void Detach()
     {
         if (attachedObject == null) return;
         attachedObject.RemoveAttacher(gameObject);
-        attachedObject = null;
-        transform.SetParent(null);
-        Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
-        r2D.simulated = true;
-        attachCooldown = 3f;
+        // attachedObject = null;
+        // transform.SetParent(null);
+        // Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
+        // r2D.simulated = true;
+        // attachCooldown = 3f;
+        Destroy(gameObject);
     }
 }

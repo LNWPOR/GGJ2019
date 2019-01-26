@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : AttachableObject, IDamageable {
+public class PlayerController : AttachableObject, IDamageable
+{
+    const float LIFETIME = 60f;
+    [SerializeField]
+    public float lifetime;
+
+    [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
 
@@ -15,30 +21,39 @@ public class PlayerController : AttachableObject, IDamageable {
     private bool isFacingRight = true;
     private const int MAX_GROUNED_COLLIDER_CHECK = 20;
     private Collider2D[] colliders = new Collider2D[20];
-    void Start() {
+    void Start()
+    {
         rigidbody = GetComponent<Rigidbody2D>();
         colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
+        lifetime = LIFETIME;
     }
 
-    void Update() {
+    void Update()
+    {
         UpdateHorizontalMove();
         UpdateJumpState();
+        UpdateLifetime();
     }
 
-    void FixedUpdate() {
-
-        if (IsGrounded()) {
+    void FixedUpdate()
+    {
+        if (IsGrounded())
+        {
             rigidbody.AddTorque(torqueSpeed * turn * -1 * GameManager.GetInstance().GetSpeedMultipier());
         }
     }
 
-    bool IsGrounded() {
+    bool IsGrounded()
+    {
         int groundLayer = 8;
         colliders = new Collider2D[MAX_GROUNED_COLLIDER_CHECK];
         PhysicsScene2D.OverlapCollider(GetComponent<Collider2D>(), colliders, Physics2D.DefaultRaycastLayers);
-        for (int i = 0; i < colliders.Length; i++) {
-            if (colliders[i]) {
-                if (colliders[i].gameObject.layer.Equals(groundLayer)) {
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i])
+            {
+                if (colliders[i].gameObject.layer.Equals(groundLayer))
+                {
                     return true;
                 }
             }
@@ -46,13 +61,18 @@ public class PlayerController : AttachableObject, IDamageable {
         return false;
     }
 
-    void UpdateHorizontalMove() {
-        if (IsGrounded()) {
+    void UpdateHorizontalMove()
+    {
+        if (IsGrounded())
+        {
             float newHorizontal = Input.GetAxis("Horizontal");
 
-            if (newHorizontal > 0 && !isFacingRight) {
+            if (newHorizontal > 0 && !isFacingRight)
+            {
                 ChangeMoveDirection();
-            } else if (newHorizontal < 0 && isFacingRight) {
+            }
+            else if (newHorizontal < 0 && isFacingRight)
+            {
                 ChangeMoveDirection();
             }
 
@@ -60,29 +80,67 @@ public class PlayerController : AttachableObject, IDamageable {
         }
     }
 
-    void ChangeMoveDirection() {
+    void ChangeMoveDirection()
+    {
         rigidbody.velocity = new Vector2(0f, 0f);
         rigidbody.angularVelocity = 0f;
         isFacingRight = !isFacingRight;
     }
 
-    void UpdateJumpState() {
-        if (Input.GetButtonDown("Jump") && IsGrounded()) {
+    void UpdateJumpState()
+    {
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
             GameObject planet = GameManager.GetInstance().planet;
             Vector3 jumpDirection = new Vector2((transform.position.x - planet.transform.position.x), (transform.position.y - planet.transform.position.y));
             rigidbody.AddForce(jumpDirection * jumpForce);
         }
     }
-    public int Hit(int damage) {
-        int remainingHP = this.hitpoint - damage;
-        this.hitpoint = remainingHP;
-        if (remainingHP <= 0) {
-            this.Dead();
+
+    void UpdateLifetime()
+    {
+        if (attachers.Count > 0) return;
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0f)
+        {
+            Dead();
         }
-        return remainingHP;
     }
 
-    public void Dead() {
+    public int Hit(int damage)
+    {
+        // int remainingHP = this.hitpoint - damage;
+        // this.hitpoint = remainingHP;
+        // if (remainingHP <= 0)
+        // {
+        if (attachers.Count > 0)
+        {
+            float minLifetime = float.MaxValue;
+            Attacher oldestAttacher = null;
+            foreach (var item in attachers)
+            {
+                GameObject obj = item.Key;
+                Attacher attacher = obj.GetComponent<Attacher>();
+                if (attacher.lifetime < minLifetime)
+                {
+                    minLifetime = attacher.lifetime;
+                    oldestAttacher = attacher;
+                }
+            }
+            if (oldestAttacher != null)
+            {
+                oldestAttacher.Detach();
+            }
+            return 1;
+        }
+        this.Dead();
+        return 0;
+        // }
+        // return remainingHP;
+    }
+
+    public void Dead()
+    {
         GameManager.GetInstance().DoPlayerDead();
     }
 }
