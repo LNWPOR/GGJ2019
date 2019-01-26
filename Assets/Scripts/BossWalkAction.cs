@@ -10,7 +10,7 @@ public class BossWalkAction : ActionBased {
         this.boss = boss;
     }
     public override void Start() {
-        bossWalkHelperObject = new GameObject();
+        bossWalkHelperObject = new GameObject("bossWalkHelperObject");
         bossWalkHelperObject.AddComponent<BossWalkActionHelper>();
         BossWalkActionHelper bookWalkActionHelper = bossWalkHelperObject.GetComponent<BossWalkActionHelper>();
         if (!rotationParentObject) {
@@ -47,12 +47,12 @@ class BossWalkActionHelper : MonoBehaviour {
     private void OnTimerEnd() {
         action?.Invoke();
         boss.transform.parent = null;
-        Destroy(rotationParentObject);
-        Destroy(gameObject);
+        Destroy(rotationParentObject, 3f);
+        Destroy(gameObject, 3f);
     }
 
     public GameObject GenerateRotationHelperObject() {
-        return Instantiate(new GameObject(), new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+        return Instantiate(new GameObject("rotationParentObject"), new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
     }
 
     public IEnumerator CheckWalkEnd() {

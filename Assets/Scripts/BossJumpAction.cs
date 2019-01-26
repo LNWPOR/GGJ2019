@@ -12,7 +12,7 @@ public class BossJumpAction : ActionBased {
         this.isTurn = isTurn;
     }
     public override void Start() {
-        bossJumpHelperObject = new GameObject();
+        bossJumpHelperObject = new GameObject("bossJumpHelperObject");
         bossJumpHelperObject.AddComponent<BossJumpActionHelper>();
         bossJumpHelperObject.GetComponent<BossJumpActionHelper>().WaitJumpingEnd(OnJumpingEnd, boss, isTurn);
     }
@@ -35,13 +35,14 @@ class BossJumpActionHelper : MonoBehaviour {
     public void WaitJumpingEnd(System.Action action, GameObject boss, bool isTurn) {
         this.action = action;
         this.boss = boss;
+        this.isTurn = isTurn;
         this.startPoint = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
         StartCoroutine(CheckMoveUpEnd());
     }
 
     private void OnTimerEnd() {
         action?.Invoke();
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
     }
 
     public IEnumerator CheckMoveUpEnd() {
@@ -62,6 +63,7 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     void TurnDirection() {
+
         Vector2 localScale = new Vector2(boss.transform.localScale.x, boss.transform.localScale.y);
         localScale.x *= -1;
         boss.transform.localScale = localScale;
