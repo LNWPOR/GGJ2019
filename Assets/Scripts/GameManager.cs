@@ -23,14 +23,14 @@ public class GameManager
     public void DoPlayerDead()
     {
         Debug.Log("<color=red>DoPlayerDead.</color>");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("FlowTest1");
     }
 
     public void DoBossDead()
     {
         Debug.Log("<color=green>DoBossDead.</color>");
         _SpeedMultipier += 0.5f;
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("FlowTest1");
     }
 
     public void DoBossFight()
