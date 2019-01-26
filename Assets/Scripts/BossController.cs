@@ -17,7 +17,8 @@ public class BossController : AttachableObject
     // Update is called once per frame
     void Update()
     {
-        _BossMainQueue.AddAction(new TestAction());
+        _BossMainQueue.AddAction(new BossSummonerCactus());
+        _BossMainQueue.AddAction(new BossSummonerBird());
     }
 
     public void RemoveWeakpoint(BossWeakpoint weakpoint)
