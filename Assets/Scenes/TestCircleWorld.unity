@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 195716, guid: 6b0ac116c32b1c246a65ca29ad658a0a, type: 3}
   numberOfObjects: 200
-  radius: 49
+  radius: 40
   ratio: 0.1
   spt: []
   cubes: []
@@ -994,11 +994,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2276510369451331498, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 79231731}
     - target: {fileID: 2276510369451331499, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}
       propertyPath: radius
@@ -1014,6 +1009,11 @@ PrefabInstance:
       propertyPath: terrainFluctuationMagnitude
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2276510369451331498, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 79231731}
     - target: {fileID: 2276510369451331501, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
