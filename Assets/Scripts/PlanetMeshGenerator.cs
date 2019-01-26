@@ -56,6 +56,7 @@ public class PlanetMeshGenerator : MonoBehaviour
     private List<Vector2> textureCoordinates = new List<Vector2>();
     private List<Vector2> colliderVerticies = new List<Vector2>();
     private List<int> indicies = new List<int>();
+    private float minSurfaceHeight;
     float perlinSeed;
 
     //  -----
@@ -71,6 +72,10 @@ public class PlanetMeshGenerator : MonoBehaviour
     {
         //  Update material uniform
         material.SetVector("_CoreCenter", new Vector4(this.transform.position.x, this.transform.position.y));
+        
+        material.SetFloat("_numSurfaceVerticies", colliderVerticies.Count );
+
+        material.SetFloat("_minSurfaceHeight", this.minSurfaceHeight);
     }
 
     public void randomSeed()
@@ -132,6 +137,8 @@ public class PlanetMeshGenerator : MonoBehaviour
         //  Clear collider verticies
         colliderVerticies.Clear();
 
+        this.minSurfaceHeight = Mathf.Infinity;
+
         //  Generate mesh in full circle
         /*
          * Note: Since Unity coordinate system is left-handed (clockwise) but Math function coordinate system is right-handed
@@ -143,6 +150,10 @@ public class PlanetMeshGenerator : MonoBehaviour
             
             float terrainHeight = radius 
                                     + terrainFluctuationMagnitude * ( Mathf.PerlinNoise(accumulatedAngle * terrainFluctuationLength, perlinSeed) * 2 - 1 );
+
+            //  Cache min surface height for shader
+            if(this.minSurfaceHeight > terrainHeight)
+                minSurfaceHeight = terrainHeight;
 
             Vector3 surfacePosition = dirToSurface * terrainHeight;
 

@@ -2,7 +2,11 @@
 {
     Properties
     {
-        _CoreCenter("Core Center", Vector) = (0, 0, 0, 0)
+        _A ("A", Float) = 100
+        _B ("B", Float) = 0.02
+        _C ("C", Float) = 0.3
+        _minSurfaceHeight ("MinSurfaceHeight", Float) = 1
+        _numSurfaceVerticies ("TotalSurfacePoint", Float) = 1
         _MainTex ("Texture", 2D) = "white" {}
     }
     SubShader
@@ -34,12 +38,15 @@
                 float4 vertex : SV_POSITION;
                 float distToSurface : TEXCOORD1;
                 float distToSurfaceNorm : TEXCOORD2;
+                float radius : TEXCOORD3;
+                float2 position : TEXCOORD4;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-
-            float4 _CoreCenter;
+            float _numSurfaceVerticies;
+            float _minSurfaceHeight;
+            float _A, _B, _C;
 
             v2f vert (appdata v)
             {
@@ -55,25 +62,57 @@
                 {
                     o.distToSurface = 0;
                     o.distToSurfaceNorm =0;
+                    o.radius = 0;
                 }
                 else
                 {
                     o.distToSurface = length(v.vertex.xy);
                     o.distToSurfaceNorm = 1;
+                    o.radius = v.vertexId / _numSurfaceVerticies;
                 }
 
+                o.position = v.vertex.xy;
                 return o;
             }
+
+
+            float spiral2( float2 pos, float relativePercent ) {
+                float r = length(pos) * relativePercent;
+                float a = atan2(pos.x, pos.y);
+                float v = sin(  _A *(sqrt(r)
+                                    -_B * a
+                                    -_C * _Time.y));
+                // return clamp(v,0.,1.);
+                return abs(v);
+
+            }
+
 
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                float val = i.distToSurface / 23;
+                float val;
 
-                val = i.uv.x;
+                float selfMaxDist = i.distToSurface / i.distToSurfaceNorm;
 
+                float relativePercent = selfMaxDist / _minSurfaceHeight;
+
+                //val = i.uv.y;
+                // val = spiral( i.uv.y, i.uv.x );
+                //val = spiral( i.uv.x, i.uv.y );
+
+                val = spiral2( i.position, relativePercent );
+                // val = spiral(i.distToSurface, i.radius);
+                // val = spiral( i.distToSurfaceNorm, i.uv.y );
+                // val = spiral( i.uv.x/i.uv.y, i.distToSurfaceNorm );
+
+                // val = spiral( i.distToSurface, i.radius );
+                // val = spiral( i.radius, i.distToSurface );
+                // val = spiral( i.distToSurfaceNorm, i.radius );
+                // val = spiral( i.radius, i.distToSurface );
+                
                 col = float4( val, val, val, val );
 
                 return col;
