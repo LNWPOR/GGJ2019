@@ -467,17 +467,17 @@ PrefabInstance:
     - target: {fileID: 6071978107860774473, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6071978107860774466, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.38
+      value: -5.16
       objectReference: {fileID: 0}
     - target: {fileID: 6071978107860774466, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.78
+      value: 1.24
       objectReference: {fileID: 0}
     - target: {fileID: 6071978107860774466, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 6071978107860774476, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
       propertyPath: jumpForce
-      value: 1600
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 6071978107860774476, guid: 5cc1b5550147de644aaad14e2522476c,
         type: 3}
@@ -1201,6 +1201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Planet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276510369451331496, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2276510369451331500, guid: bc9f666e52c099b4dbf70a68d5b7c3e9,
         type: 3}

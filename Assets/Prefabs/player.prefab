@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueSpeed: 10
-  jumpForce: 600
+  jumpForce: 15
 --- !u!50 &6071978107860774479
 Rigidbody2D:
   serializedVersion: 4
