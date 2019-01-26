@@ -9,7 +9,7 @@ public class BossSummonerBird : ActionBased
     public GameObject prefab;
     private Vector2 position;
 
-    public BossSummonerBird(float actionTime = 1f, Vector2 position)
+    public BossSummonerBird( Vector2 position, float actionTime = 1f)
     {
         this.actionTime = actionTime;
         this.position = position;

@@ -10,7 +10,7 @@ public class BossSummonerCactus : ActionBased
     private Vector2 position;
     private Vector2 velocity;
 
-    public BossSummonerCactus(float actionTime = 1f, Vector2 position, Vector2 velocity)
+    public BossSummonerCactus(Vector2 position, Vector2 velocity, float actionTime = 1f)
     {
         this.actionTime = actionTime;
         this.position = position;
