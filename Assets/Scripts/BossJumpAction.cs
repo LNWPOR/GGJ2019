@@ -6,13 +6,15 @@ public class BossJumpAction : ActionBased {
 
     private GameObject boss;
     GameObject bossJumpHelperObject;
-    public BossJumpAction(GameObject boss) {
+    bool isTurn = false;
+    public BossJumpAction(GameObject boss, bool isTurn = false) {
         this.boss = boss;
+        this.isTurn = isTurn;
     }
     public override void Start() {
         bossJumpHelperObject = new GameObject();
         bossJumpHelperObject.AddComponent<BossJumpActionHelper>();
-        bossJumpHelperObject.GetComponent<BossJumpActionHelper>().WaitJumpingEnd(OnJumpingEnd, boss);
+        bossJumpHelperObject.GetComponent<BossJumpActionHelper>().WaitJumpingEnd(OnJumpingEnd, boss, isTurn);
     }
     private void OnJumpingEnd() {
 
@@ -29,7 +31,8 @@ class BossJumpActionHelper : MonoBehaviour {
     private Vector3 startPoint;
     //private float jumpDistance = 20f;
     private float moveDuration = 1f;
-    public void WaitJumpingEnd(System.Action action, GameObject boss) {
+    private bool isTurn = false;
+    public void WaitJumpingEnd(System.Action action, GameObject boss, bool isTurn) {
         this.action = action;
         this.boss = boss;
         this.startPoint = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
@@ -52,7 +55,9 @@ class BossJumpActionHelper : MonoBehaviour {
             //}
             yield return null;
         }
-        TurnDirection();
+        if (isTurn) {
+            TurnDirection();
+        }
         StartCoroutine(CheckMoveDownEnd());
     }
 
@@ -80,7 +85,7 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     public IEnumerator WaitMoveDownEnd() {
-        yield return new WaitForSeconds(moveDuration * 2);
+        yield return new WaitForSeconds(moveDuration * 3);
         moveDownFinish = true;
     }
 }
