@@ -10,9 +10,11 @@ public class BossController : AttachableObject {
     // Start is called before the first frame update
     void Start() {
         UpdateBossRotation();
-
+        _BossMainQueue.AddAction(new BossWalkAction(gameObject));
         _BossMainQueue.AddAction(new BossJumpAction(gameObject));
         _BossMainQueue.AddAction(new BossWalkAction(gameObject));
+        //_BossMainQueue.AddAction(new GroupAction(new IAction[] { new BossWalkAction(gameObject) }));
+        //_BossMainQueue.AddAction(new BossWalkAction(gameObject));
     }
 
     // Update is called once per frame
