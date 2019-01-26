@@ -25,7 +25,7 @@ public class BossController : AttachableObject {
         //_BossMainQueue.AddAction(new BossSummonerBird(new Vector2(0.3f, 4)));
         if (_BossMainQueue.GetQueue().Count.Equals(0)) {
             actionList = GenerateActionList();
-            _BossMainQueue.AddAction(actionList[Random.Range(0, actionList.Count - 1)]);
+            _BossMainQueue.AddAction(actionList[Random.Range(0, actionList.Count)]);
         }
     }
 

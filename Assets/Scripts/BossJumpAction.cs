@@ -35,6 +35,7 @@ class BossJumpActionHelper : MonoBehaviour {
     public void WaitJumpingEnd(System.Action action, GameObject boss, bool isTurn) {
         this.action = action;
         this.boss = boss;
+        this.isTurn = isTurn;
         this.startPoint = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
         StartCoroutine(CheckMoveUpEnd());
     }
@@ -62,6 +63,7 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     void TurnDirection() {
+
         Vector2 localScale = new Vector2(boss.transform.localScale.x, boss.transform.localScale.y);
         localScale.x *= -1;
         boss.transform.localScale = localScale;
