@@ -7,17 +7,21 @@ public class BossSummonerCactus : ActionBased
 {
     private readonly float actionTime;
     public GameObject prefab;
+    private Vector2 position;
+    private Vector2 velocity;
 
-    public BossSummonerCactus(float actionTime = 1f)
+    public BossSummonerCactus(float actionTime = 1f, Vector2 position, Vector2 velocity)
     {
         this.actionTime = actionTime;
+        this.position = position;
+        this.velocity = velocity;
     }
 
     public override void Start()
     {
         GameObject Cactus = Helper.CreateObject("Cactus");
-        Cactus.transform.position = new Vector2(-10, 0);
-        Cactus.GetComponent<Rigidbody2D>().velocity = new Vector2(3, 0);
+        Cactus.transform.position = this.position;
+        Cactus.GetComponent<Rigidbody2D>().velocity = this.velocity;
         Cactus.GetComponent<CactusMissileController>().EventReturn = OnActionTimeEnd;
     }
 
