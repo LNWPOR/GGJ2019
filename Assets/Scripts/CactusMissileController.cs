@@ -11,6 +11,9 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     private float VelocityX = 10;
     [SerializeField]
     private int damage = 100;
+    [SerializeField]
+    private float LifeTime = 3;
+    public System.Action EventReturn;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +24,13 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        LifeTime -= Time.deltaTime;
+        if (LifeTime <= 0) Dead();
     }
 
     public void Dead()
     {
+        EventReturn();
         Destroy(gameObject);
     }
 

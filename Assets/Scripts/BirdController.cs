@@ -8,18 +8,19 @@ public class BirdController : MonoBehaviour, IDamageable
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
     [SerializeField]
-    private float Velocity = 20f;
+    private float Velocity = 1;
     [SerializeField]
     private int damage = 100;
     [SerializeField]
     private float targetTime = 3;
     [SerializeField]
     private float RotationSpeed = 10;
+    public System.Action EventReturn;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -35,12 +36,14 @@ public class BirdController : MonoBehaviour, IDamageable
         }
         if (targetTime <= 0)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(moveDirection.x * Velocity, moveDirection.y * Velocity));
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(moveDirection.x/Mathf.Abs(moveDirection.x) * Velocity, moveDirection.y/Mathf.Abs(moveDirection.y) * Velocity));
         }
+        if (targetTime <= -3) Dead();
     }
 
     public void Dead()
     {
+        EventReturn();
         Destroy(gameObject);
     }
 
