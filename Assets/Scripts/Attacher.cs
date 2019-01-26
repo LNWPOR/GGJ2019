@@ -4,19 +4,19 @@ using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Attacher: MonoBehaviour
+public class Attacher : MonoBehaviour
 {
     protected AttachableObject attachedObject;
     private float attachCooldown;
 
     // Start is called before the first frame update
-   public void Start()
+    public void Start()
     {
 
     }
 
     // Update is called once per frame
-   public void Update()
+    public void Update()
     {
         if (attachCooldown > 0f)
         {
