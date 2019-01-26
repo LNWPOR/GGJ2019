@@ -149,16 +149,11 @@ public class SpectrumController : MonoBehaviour
         {
             Vector3 previousScale = cubes[i].transform.localScale;
             Vector3 tempPos = orgPos[i];
-            //previousScale.x = Mathf.MoveTowards (previousScale.x, spectrum [i] * 200, spectrum [i] * 200);
+            if (spt[i] > 0.02f) spt[i] = 0.02f;
             previousScale.x = Mathf.Lerp(previousScale.x, spt[i] * 1000, Time.deltaTime * 30);
             tempPos = orgPos[i] + cubes[i].transform.right * (previousScale.x / 2.0f + orgScale.x / 2.0f);
             cubes[i].transform.localScale = previousScale;
             cubes[i].transform.position = tempPos;
         }
-    }
-
-    void CreateEnemyByChunk()
-    {
-
     }
 }
