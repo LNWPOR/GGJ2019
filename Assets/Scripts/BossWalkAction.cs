@@ -45,6 +45,7 @@ class BossWalkActionHelper : MonoBehaviour {
         GameObject planet = GameManager.GetInstance().GetPlanet();
         Vector2 between = boss.transform.position - planet.transform.position;
         Vector2 ninetyDegrees = Vector2.Perpendicular(between);
+        Debug.Log(ninetyDegrees);
         Vector3 destination = ninetyDegrees * 2;
         destination.z = startPoint.z;
         if (boss.transform.localScale.x > 0) {
@@ -52,7 +53,8 @@ class BossWalkActionHelper : MonoBehaviour {
         }
         StartCoroutine(WaitWalkEnd());
         while (!walkingFinish) {
-            boss.transform.Translate(destination * Time.deltaTime * moveSpeed);
+            //boss.transform.Translate(destination * Time.deltaTime * moveSpeed);
+            boss.transform.position += destination * Time.deltaTime * moveSpeed;
             yield return null;
         }
     }
