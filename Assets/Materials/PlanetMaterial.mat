@@ -77,7 +77,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _minSurfaceHeight: 42.34899
+    - _minSurfaceHeight: 42.843197
     - _numSurfaceVerticies: 300
     m_Colors:
     - _Color: {r: 0.55747753, g: 0.8301887, b: 0.36418653, a: 1}
