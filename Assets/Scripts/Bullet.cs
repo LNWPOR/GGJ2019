@@ -50,15 +50,21 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
-        IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+        IDamageable damageable = collider.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+        Debug.Log("collider: " + collider.gameObject);
         if (
             damageable != null &&
-            (collision.gameObject.tag == "Player" && bulletType == BULLET_TYPE.ENEMY) ||
-            (collision.gameObject.tag == "Enemy" && bulletType == BULLET_TYPE.PLAYER)
+            (collider.gameObject.tag == "Player" && bulletType == BULLET_TYPE.ENEMY) ||
+            (collider.gameObject.tag == "Enemy" && bulletType == BULLET_TYPE.PLAYER)
         ) {
+            Debug.Log("Hit!" + collider.gameObject.name);
             damageable.Hit(damage);
+            DestroyBullet();
+        } else if (damageable == null)
+        {
+            DestroyBullet();
         }
     }
 
