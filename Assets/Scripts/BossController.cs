@@ -17,8 +17,8 @@ public class BossController : AttachableObject {
 
     // Update is called once per frame
     void Update() {
-        _BossMainQueue.AddAction(new BossSummonerCactus());
-        _BossMainQueue.AddAction(new BossSummonerBird());
+        _BossMainQueue.AddAction(new BossSummonerCactus(1f, new Vector2(-10, 0), new Vector2(5, 0)));
+        _BossMainQueue.AddAction(new BossSummonerBird(1f, new Vector2(0.3f, 4)));
     }
 
     void UpdateBossRotation() {
