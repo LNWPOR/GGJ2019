@@ -9,6 +9,8 @@ public class BossController : AttachableObject {
 
     // Start is called before the first frame update
     void Start() {
+        UpdateBossRotation();
+
         _BossMainQueue.AddAction(new BossJumpAction(gameObject));
         _BossMainQueue.AddAction(new BossWalkAction(gameObject));
     }
@@ -17,6 +19,14 @@ public class BossController : AttachableObject {
     void Update() {
         _BossMainQueue.AddAction(new BossSummonerCactus());
         _BossMainQueue.AddAction(new BossSummonerBird());
+    }
+
+    void UpdateBossRotation() {
+        GameObject planet = GameManager.GetInstance().GetPlanet();
+        Vector2 between = transform.position - planet.transform.position;
+        Vector2 ninetyDegrees = Vector2.Perpendicular(between) * -1;
+        float angle = Mathf.Atan2(ninetyDegrees.y, ninetyDegrees.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     public void RemoveWeakpoint(BossWeakpoint weakpoint) {

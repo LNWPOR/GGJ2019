@@ -50,7 +50,6 @@ class BossWalkActionHelper : MonoBehaviour {
         if (boss.transform.localScale.x > 0) {
             destination *= -1;
         }
-        Debug.Log(destination);
         StartCoroutine(WaitWalkEnd());
         while (!walkingFinish) {
             boss.transform.Translate(destination * Time.deltaTime * moveSpeed);
