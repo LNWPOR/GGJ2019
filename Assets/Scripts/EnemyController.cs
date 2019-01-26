@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
     private float MinAngularVelocity = 20;
     [SerializeField]
     private float torque = 20f;
+    [SerializeField]
+    private int damage = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -39,5 +41,17 @@ public class EnemyController : MonoBehaviour
     {
         healthPoint -= 1;
         if (healthPoint == 0) EnemyDie();
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
+        if (
+            damageable != null &&
+            (collision.gameObject.tag == "Player")
+            )
+        {
+            damageable.Hit(this.damage);
+        }
     }
 }
