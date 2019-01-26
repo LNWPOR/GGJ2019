@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttachableObject : MonoBehaviour
 {
-    private Dictionary<GameObject, int> attachers = new Dictionary<GameObject, int>();
+    protected Dictionary<GameObject, int> attachers = new Dictionary<GameObject, int>();
 
     // Start is called before the first frame update
     void Start()
