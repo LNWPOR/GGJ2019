@@ -29,20 +29,24 @@ public class Attacher: MonoBehaviour
             AttachableObject collidedObject = collision.gameObject.GetComponent<AttachableObject>();
             attachedObject = collidedObject;
             collidedObject.AddAttacher(gameObject);
+            transform.SetParent(collidedObject.transform);
+
             Vector3 collidedPos = collision.transform.position;
             Vector2 contactPos = collision.contacts[0].point;
             Collider2D c2D = gameObject.GetComponent<Collider2D>();
             c2D.enabled = false;
             Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
             r2D.simulated = false;
-            Vector3 v = new Vector3(contactPos.x - collidedPos.x, contactPos.y - collidedPos.y);
-            float angle = Vector3.Angle(Vector3.left, v);
-            transform.SetParent(collidedObject.transform);
-            transform.localRotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
-            transform.localPosition = new Vector3(
+            Vector3 collidedRot = collision.transform.rotation.eulerAngles;
+            float collidedAngle = -collidedRot.z;
+            Vector3 localPos = new Vector3(
                 collidedPos.x - contactPos.x,
                 collidedPos.y - contactPos.y
             );
+            float contactAngle = Vector3.Angle(Vector3.up, localPos);
+            Vector3 localPosRotated = Quaternion.Euler(0, 0, collidedAngle) * localPos;
+            transform.localPosition = localPosRotated;
+            transform.localRotation = Quaternion.AngleAxis(contactAngle - collidedAngle, new Vector3(0, 0, 1));
         }
     }
 

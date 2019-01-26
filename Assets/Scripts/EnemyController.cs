@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     void FixedUpdate()
     {
         lifetime -= Time.deltaTime;
-        if (lifetime == 0) Dead();
+        if (lifetime <= 0) Dead();
         if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
         {
             gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
