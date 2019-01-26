@@ -5,51 +5,52 @@ using UnityEngine;
 public class Attacher: MonoBehaviour
 {
     private AttachableObject attachedObject;
-    private float cooldown;
+    private float attachCooldown;
 
     // Start is called before the first frame update
    public void Start()
     {
-        Debug.Log(this.name);
+
     }
 
     // Update is called once per frame
    public void Update()
     {
-        if (this.cooldown > 0f)
+        if (attachCooldown > 0f)
         {
-            this.cooldown -= Time.deltaTime;
+            attachCooldown -= Time.deltaTime;
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (this.attachedObject == null && collision.gameObject.GetComponent<AttachableObject>() != null && this.cooldown < 0.001f)
+        if (attachedObject == null && collision.gameObject.GetComponent<AttachableObject>() != null && attachCooldown < 0.001f)
         {
             AttachableObject collidedObject = collision.gameObject.GetComponent<AttachableObject>();
-            this.attachedObject = collidedObject;
+            attachedObject = collidedObject;
             collidedObject.AddAttacher(gameObject);
             Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
             r2D.simulated = false;
-            foreach (ContactPoint2D contactPoint2D in collision.contacts)
-            {
-                transform.SetParent(collidedObject.transform);
-                transform.position = new Vector3(
-                    contactPoint2D.point.x,
-                    contactPoint2D.point.y
-                );
-           }
+            ContactPoint2D contact = collision.contacts[0];
+            transform.SetParent(collidedObject.transform);
+            transform.position = new Vector3(
+                contact.point.x,
+                contact.point.y
+            );
+            Vector3 v = new Vector3(contact.point.x - collision.transform.position.x, contact.point.y - collision.transform.position.y);
+            float angle = Vector3.Angle(Vector3.right, v);
+            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
     protected void Detach()
     {
-        if (this.attachedObject == null) return;
-        this.attachedObject.RemoveAttacher(gameObject);
-        this.attachedObject = null;
+        if (attachedObject == null) return;
+        attachedObject.RemoveAttacher(gameObject);
+        attachedObject = null;
         transform.SetParent(null);
         Rigidbody2D r2D = gameObject.GetComponent<Rigidbody2D>();
         r2D.simulated = true;
-        this.cooldown = 3f;
+        attachCooldown = 3f;
     }
 }

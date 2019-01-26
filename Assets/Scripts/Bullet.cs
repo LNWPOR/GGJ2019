@@ -10,25 +10,49 @@ public enum BULLET_TYPE
 
 public class Bullet : MonoBehaviour
 {
-    public int damage = 100;
+    static float DISTANCE = 100f;
+
+    public int damage;
+    public float speed;
+    public MainWeapon owner;
     public BULLET_TYPE bulletType;
 
-    public Bullet(int damage, BULLET_TYPE bulletType)
+    private float travelTime;
+    private Vector3 from;
+    private Vector3 to;
+    private float time = 0;
+
+    public Bullet(int damage, float speed, BULLET_TYPE bulletType)
     {
         this.damage = damage;
+        this.speed = speed;
         this.bulletType = bulletType;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        from = transform.position;
+        float angle = transform.rotation.eulerAngles.z;
+        var vForce = Quaternion.AngleAxis(angle, Vector3.forward) * Vector3.right;
+        to = from + (vForce.normalized * DISTANCE);
+        Debug.Log("from: " + from);
+        Debug.Log("to: " + to);
+        Debug.Log("travelTime: " + travelTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("DISTANCE: " + DISTANCE);
+        Debug.Log("speed: " + speed);
+        travelTime = DISTANCE / speed;
+        time += Time.deltaTime;
+        transform.position = Vector3.Lerp(from, to, time / travelTime);
+        if (time >= travelTime)
+        {
+            DestroyBullet();
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -36,10 +60,16 @@ public class Bullet : MonoBehaviour
         IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             damageable != null &&
-            (collision.gameObject.tag == "Player" && this.bulletType == BULLET_TYPE.ENEMY) ||
-            (collision.gameObject.tag == "Enemy" && this.bulletType == BULLET_TYPE.PLAYER)
+            (collision.gameObject.tag == "Player" && bulletType == BULLET_TYPE.ENEMY) ||
+            (collision.gameObject.tag == "Enemy" && bulletType == BULLET_TYPE.PLAYER)
         ) {
-            damageable.Hit(this.damage);
+            damageable.Hit(damage);
         }
+    }
+
+    private void DestroyBullet()
+    {
+        owner.OnDestroyBullet(gameObject);
+        Destroy(gameObject);
     }
 }
