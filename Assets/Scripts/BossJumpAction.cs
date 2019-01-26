@@ -28,7 +28,7 @@ class BossJumpActionHelper : MonoBehaviour {
     private float jumpSpeed = 0.02f;
     private Vector3 startPoint;
     //private float jumpDistance = 20f;
-    private float moveDuration = 0.5f;
+    private float moveDuration = 1f;
     public void WaitJumpingEnd(System.Action action, GameObject boss) {
         this.action = action;
         this.boss = boss;
@@ -37,8 +37,8 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     private void OnTimerEnd() {
-        Destroy(gameObject);
         action?.Invoke();
+        Destroy(gameObject);
     }
 
     public IEnumerator CheckMoveUpEnd() {
@@ -80,7 +80,7 @@ class BossJumpActionHelper : MonoBehaviour {
     }
 
     public IEnumerator WaitMoveDownEnd() {
-        yield return new WaitForSeconds(moveDuration);
+        yield return new WaitForSeconds(moveDuration * 2);
         moveDownFinish = true;
     }
 }
