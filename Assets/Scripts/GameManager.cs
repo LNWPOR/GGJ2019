@@ -10,6 +10,13 @@ public class GameManager {
     private int DeadCount;
     private int additionMonster = 0;
 
+    public float noiseFrequency = 4;
+    public float terrainFluctuationMagnitude = 10;
+    public float octavePersistence = 0.3f;
+    // noiseFrequency += 1.3f;
+    // planetMeshGen.terrainFluctuationMagnitude += 2;
+    // planetMeshGen.octavePersistence
+
     public GameObject GetPlanet() {
         if (!planet) {
             planet = GameObject.Find("Planet"); ;
@@ -63,14 +70,12 @@ public class GameManager {
 
         Debug.Log("Gen new shit");
         // Increase planet size and chaos
-        PlanetMeshGenerator planetMeshGen = this.GetPlanet().GetComponent<PlanetMeshGenerator>();
-        planetMeshGen.noiseFrequency += 1.3f;
-        planetMeshGen.terrainFluctuationMagnitude += 2;
-        planetMeshGen.octavePersistence += 0.1f;
-        planetMeshGen.startGenPlanetMeshProcess();
-        AdditionMonster += 2;
+        this.noiseFrequency += 1.3f;
+        this.terrainFluctuationMagnitude += 2;
+        this.octavePersistence += 0.1f;
 
-
+        //  Increase monster
+        AdditionMonster += 5;
         SceneManager.LoadScene("TestCircleWorld");
     }
 

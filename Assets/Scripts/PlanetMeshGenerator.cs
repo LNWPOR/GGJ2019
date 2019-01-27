@@ -67,9 +67,14 @@ public class PlanetMeshGenerator : MonoBehaviour
     //  member function
     //  -----
     
-    public void OnEnable()
+    public void Start()
     {
         this.randomSeed();
+        GameManager gameManagerInstance = GameManager.GetInstance();
+        this.noiseFrequency = gameManagerInstance.noiseFrequency;
+        this.terrainFluctuationMagnitude = gameManagerInstance.terrainFluctuationMagnitude;
+        this.octavePersistence = gameManagerInstance.octavePersistence;
+        startGenPlanetMeshProcess();
     }
 
     public void Update()
