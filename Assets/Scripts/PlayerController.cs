@@ -94,7 +94,7 @@ public class PlayerController : AttachableObject, IDamageable
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            GameObject planet = GameManager.GetInstance().planet;
+            GameObject planet = GameManager.GetInstance().GetPlanet();
             Vector3 jumpDirection = new Vector2((transform.position.x - planet.transform.position.x), (transform.position.y - planet.transform.position.y));
             rigidbody.AddForce(jumpDirection * jumpForce);
         }

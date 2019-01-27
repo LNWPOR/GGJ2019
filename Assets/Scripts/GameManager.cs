@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager {
     private static GameManager _Instance;
-    public GameObject planet;
+    private GameObject planet;
 
     public GameObject GetPlanet() {
         if (!planet) {
