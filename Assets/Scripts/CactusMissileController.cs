@@ -33,7 +33,7 @@ public class CactusMissileController : MonoBehaviour, IDamageable
         MyPosToPlanet = Vector3.Normalize(planetPos - MyPosition);
 
         float angle = Mathf.Atan2(MyPosToPlanet.y, MyPosToPlanet.x) * Mathf.Rad2Deg;
-        gameObject.transform.rotation = Quaternion.AngleAxis(angle+180, Vector3.forward);
+        gameObject.transform.rotation = Quaternion.AngleAxis(angle+Angle, Vector3.forward);
 
         transform.RotateAround(planetPos, new Vector3(0,0,1), Velocity * Time.deltaTime);
     }

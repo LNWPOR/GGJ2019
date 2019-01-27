@@ -25,9 +25,9 @@ public class BossController : AttachableObject {
         return new List<ActionBased>() {
             new BossWalkAction(gameObject),
             new BossJumpAction(gameObject, true),
-            new BossJumpAction(gameObject)
-            //new BossSummonerCactus(new Vector2(-10, 0), new Vector2(5, 0)),
-            //new BossSummonerBird(new Vector2(0.3f, 4))
+            new BossJumpAction(gameObject),
+            new BossSummonerCactus(Random.insideUnitCircle.normalized * 65, 10f, 180f),
+            new BossSummonerBird(Random.insideUnitCircle.normalized * 80)
         };
     }
 
