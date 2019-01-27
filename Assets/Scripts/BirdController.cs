@@ -8,14 +8,11 @@ public class BirdController : MonoBehaviour, IDamageable
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
     [SerializeField]
-    private float Velocity = 1f;
+    private float Velocity = 10f;
     [SerializeField]
     private int damage = 100;
     [SerializeField]
-    private float InitiateTime = 3;
     private float targetTime = 3;
-    [SerializeField]
-    private float RotationSpeed = 100;
     public System.Action EventReturn;
     Vector3 moveDirection, planetPos,before, planetToBird;
 
@@ -30,18 +27,20 @@ public class BirdController : MonoBehaviour, IDamageable
     {
         targetTime -= Time.deltaTime;
         moveDirection = Vector3.Normalize(GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position);
-        planetPos = GameManager.GetInstance().planet.transform.position;
-        planetToBird = Vector3.Normalize(planetPos - gameObject.transform.position);
+        //planetPos = GameManager.GetInstance().planet.transform.position;
+        //planetToBird = Vector3.Normalize(planetPos - gameObject.transform.position);
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         if (targetTime <= 0)
         {
+            Debug.Log("A");
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(moveDirection.x*Velocity, moveDirection.y*Velocity));
         }
-        if(Mathf.Abs(Vector3.Distance(planetPos, gameObject.transform.position) - Vector3.Distance(planetPos, before)) <=0.1)
+        /*if(Mathf.Abs(Vector3.Distance(planetPos, gameObject.transform.position) - Vector3.Distance(planetPos, before)) <=0.1)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-planetToBird.x*Velocity, -planetToBird.y*Velocity));
-        }
+            Debug.Log("B");
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-planetToBird.x*Velocity*2, -planetToBird.y*Velocity*2));
+        }*/
         before = gameObject.transform.position;
     }
 
