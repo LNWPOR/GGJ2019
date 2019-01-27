@@ -72,8 +72,10 @@ public class BirdController : MonoBehaviour, IDamageable
             damageable != null &&
             (collision.gameObject.tag == "Player")
             )
+
         {
             damageable.Hit(this.damage);
+            this.Dead();
         }
         else
         {

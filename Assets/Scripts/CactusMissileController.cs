@@ -60,6 +60,7 @@ public class CactusMissileController : MonoBehaviour, IDamageable
             )
         {
             damageable.Hit(this.damage);
+            this.Dead();
         }
     }
 }
