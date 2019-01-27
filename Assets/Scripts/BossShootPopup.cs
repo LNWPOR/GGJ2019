@@ -59,7 +59,9 @@ class BossShootPopupHelper : MonoBehaviour {
         PopupController popupController = shootedPopup.GetComponent<PopupController>();
         popupController.ShootingDir = shootingDir;
         yield return new WaitForSeconds(shootingDuration);
-        popupController.Rigidbody.isKinematic = false;
+        if (popupController) {
+            popupController.Rigidbody.isKinematic = false;
+        }
         OnTimerEnd();
     }
 }

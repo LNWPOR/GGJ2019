@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4983262138797097049}
   - component: {fileID: 4405831274358899211}
   - component: {fileID: 6133540300425811995}
+  - component: {fileID: 1448999405}
   m_Layer: 0
   m_Name: recaptcha
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   damage: 3
+  popupDurationTime: 8
 --- !u!50 &4405831274358899211
 Rigidbody2D:
   serializedVersion: 4
@@ -143,3 +145,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.16, y: 1.64}
   m_EdgeRadius: 0
+--- !u!95 &1448999405
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245762875066825943}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e99c5dd0fd7c8747bfc32c661c5167f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
