@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Attacher : MonoBehaviour
 {
-    const float LIFETIME = 3f;
+    const float LIFETIME = 500f;
 
     public float lifetime;
     protected AttachableObject attachedObject;
