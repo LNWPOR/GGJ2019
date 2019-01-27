@@ -28376,12 +28376,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &874732462 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3977919750057269180, guid: 9660482ab27eda64f978bd9e1e0889d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3977919750793579538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &926577646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28850,7 +28844,7 @@ MonoBehaviour:
   _Camera: {fileID: 698385305}
   _FadeImage: {fileID: 1897062829}
   _GreetText: {fileID: 1278025296}
-  _Canvas: {fileID: 874732462}
+  _Canvas: {fileID: 486032582}
 --- !u!4 &1343589868
 Transform:
   m_ObjectHideFlags: 0
