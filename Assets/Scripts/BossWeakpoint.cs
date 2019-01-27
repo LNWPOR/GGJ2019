@@ -34,7 +34,6 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
 
     public void Dead()
     {
-        Debug.Log("Ded");
         boss.RemoveWeakpoint(this);
         Destroy(gameObject);
     }

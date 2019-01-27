@@ -56,7 +56,20 @@ public class GameManager {
 
     public void DoBossDead() {
         Debug.Log("<color=green>DoBossDead.</color>");
-        _SpeedMultipier += 0.5f;
+        //_SpeedMultipier += 0.5f;
+
+        // Speed up playtime
+        Time.timeScale += 0.5f;
+
+        Debug.Log("Gen new shit");
+        // Increase planet size and chaos
+        PlanetMeshGenerator planetMeshGen = this.GetPlanet().GetComponent<PlanetMeshGenerator>();
+        planetMeshGen.noiseFrequency += 1.3f;
+        planetMeshGen.terrainFluctuationMagnitude += 2;
+        planetMeshGen.octavePersistence += 0.1f;
+        planetMeshGen.startGenPlanetMeshProcess();
+
+
         SceneManager.LoadScene("TestCircleWorld");
     }
 
