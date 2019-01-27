@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1190701ce40142aa96637d6cd898f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 0
   damage: 50
   speed: 80
   bulletPrefab: {fileID: 1657688925792224213, guid: 8b8435c5bb2514efca272e2d083790ef,
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1c7ed8afb4246f4090e8861b0ccc2bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c69cc327c7cc2ca458103eb4d238ff81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

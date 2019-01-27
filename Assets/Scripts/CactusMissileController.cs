@@ -15,12 +15,12 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     private float LifeTime = 3;
     public System.Action EventReturn;
     private Vector3 moveDirection, planetPos, before, MyPosToPlanet, MyPosition, PlayerPos;
-
     // Start is called before the first frame update
     void Start()
     {
         
     }
+    
 
     // Update is called once per frame
     void FixedUpdate()
