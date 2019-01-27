@@ -33,13 +33,13 @@ public class GameManager {
 
     public void DoPlayerDead() {
         Debug.Log("<color=red>DoPlayerDead.</color>");
-        SceneManager.LoadScene("FlowTest1");
+        SceneManager.LoadScene("TestCircleWorld");
     }
 
     public void DoBossDead() {
         Debug.Log("<color=green>DoBossDead.</color>");
         _SpeedMultipier += 0.5f;
-        SceneManager.LoadScene("FlowTest1");
+        SceneManager.LoadScene("TestCircleWorld");
     }
 
     public void DoBossFight() {

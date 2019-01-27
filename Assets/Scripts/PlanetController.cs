@@ -20,7 +20,7 @@ public class PlanetController : MonoBehaviour
         {
             Rigidbody2D targetGameObjRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
             //  Check if target has Rigidbody2D then apply gravity
-            if( targetGameObjRigidbody2D != null )
+            if( targetGameObjRigidbody2D != null && gameObject.GetComponent<BirdController>() == null)
             {
                 Vector2 objToPlanetDir = (this.transform.position - gameObject.transform.position);
                 
