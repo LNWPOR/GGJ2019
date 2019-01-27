@@ -22,6 +22,7 @@
             // make fog work
             #pragma multi_compile_fog
 
+            #define PI 3.141592653589793238462
             #include "UnityCG.cginc"
 
             struct appdata
@@ -75,16 +76,31 @@
                 return o;
             }
 
+            float mod( float x, float y )
+            {
+                return x-y*floor(x/y);
+            }
 
             float spiral2( float2 pos, float relativePercent ) {
                 float r = length(pos) * relativePercent;
                 float a = atan2(pos.x, pos.y);
-                float v = sin(  _A *(sqrt(r)
-                                    -_B * a
-                                    -_C * _Time.y));
-                // return clamp(v,0.,1.);
-                return abs(v);
 
+                // float v = sin(  _A *((r) -_B * a -_C * _Time.y));
+                
+                // In this case period = 2Pi/_A
+                // Phase shift = -_B * a -_C * Time.y
+
+                // float PIPI = 3.141592653589793238462;
+                float modStep = mod( r -_B * a -_C * _Time.y, _A );
+
+                modStep /= _A;
+                
+                // v = mod( sqrt(r) -_C * _Time.y,_A * a);
+                // return clamp(v,0.,1.);
+                // return v;
+                // return abs(v);
+
+                return modStep;
             }
 
 
@@ -115,6 +131,7 @@
                 
                 col = float4( val, val, val, val );
 
+                // col = float4( i.distToSurfaceNorm, i.radius, 0, 1);
                 return col;
             }
             ENDCG

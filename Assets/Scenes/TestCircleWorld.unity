@@ -1007,7 +1007,7 @@ MonoBehaviour:
   rotationPoint: {fileID: 1842499948}
   followDelay: 0.07
   isEnableRotation: 1
-  cameraObject: {fileID: 0}
+  cameraObject: {fileID: 698385308}
   shakeAmount: 0.7
   shakeDecayRate: 3
 --- !u!1 &725956125
