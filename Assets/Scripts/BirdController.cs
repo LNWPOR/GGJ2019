@@ -15,11 +15,14 @@ public class BirdController : MonoBehaviour, IDamageable
     private float targetTime = 3;
     public System.Action EventReturn;
     private Vector3 moveDirection, planetPos, BirdToPlanet, MyPosition, PlayerPos, PlayerToPlanet;
+    public AudioClip impact;
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -61,6 +64,7 @@ public class BirdController : MonoBehaviour, IDamageable
     public int Hit(int damage)
     {
         hitpoint -= damage;
+        audioSource.PlayOneShot(impact, 0.7F);
         if (hitpoint <= 0) Dead();
         return hitpoint;
     }
