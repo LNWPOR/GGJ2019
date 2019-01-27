@@ -14,11 +14,12 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     [SerializeField]
     private float LifeTime = 3;
     public System.Action EventReturn;
+    private Vector3 moveDirection, planetPos, before, MyPosToPlanet, MyPosition, PlayerPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(VelocityX, 0);
+        
     }
 
     // Update is called once per frame
@@ -26,6 +27,15 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     {
         //LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) Dead();
+
+        MyPosition = gameObject.transform.position;
+        planetPos = GameManager.GetInstance().GetPlanet().transform.position;
+        MyPosToPlanet = Vector3.Normalize(planetPos - MyPosition);
+
+        float angle = Mathf.Atan2(MyPosToPlanet.y, MyPosToPlanet.x) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.AngleAxis(angle+180, Vector3.forward);
+
+        transform.RotateAround(planetPos, new Vector3(0,0,1), 10f * Time.deltaTime);
     }
 
     public void Dead()
