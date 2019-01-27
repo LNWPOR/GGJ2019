@@ -20,6 +20,8 @@ public class BossSummonerBird : ActionBased
         GameObject Bird = Helper.CreateObject("Bird");
         Bird.transform.position = this.position;
         Bird.GetComponent<BirdController>().EventReturn = OnActionTimeEnd;
+        new WaitForSeconds(3);
+        OnActionTimeEnd();
     }
 
     public void OnActionTimeEnd()

@@ -14,7 +14,7 @@ public class BirdController : MonoBehaviour, IDamageable
     [SerializeField]
     private float targetTime = 3;
     public System.Action EventReturn;
-    Vector3 moveDirection, planetPos,before, planetToBird;
+    private Vector3 moveDirection, planetPos, BirdToPlanet, MyPosition, PlayerPos, PlayerToPlanet;
 
     // Start is called before the first frame update
     void Start()
@@ -26,27 +26,35 @@ public class BirdController : MonoBehaviour, IDamageable
     void FixedUpdate()
     {
         targetTime -= Time.deltaTime;
-        moveDirection = Vector3.Normalize(GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position);
-        //planetPos = GameManager.GetInstance().planet.transform.position;
-        //planetToBird = Vector3.Normalize(planetPos - gameObject.transform.position);
+        MyPosition = gameObject.transform.position;
+        PlayerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        planetPos = GameManager.GetInstance().GetPlanet().transform.position;
+
+        moveDirection = Vector3.Normalize(PlayerPos - MyPosition);
+        BirdToPlanet = Vector3.Normalize(planetPos - MyPosition);
+        PlayerToPlanet = Vector3.Normalize(planetPos - PlayerPos);
+
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        if(Vector3.SignedAngle(-PlayerToPlanet,-BirdToPlanet, Vector3.forward) > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipY = false;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipY = true;
+        }
+
         if (targetTime <= 0)
         {
-            Debug.Log("A");
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(moveDirection.x*Velocity, moveDirection.y*Velocity));
         }
-        /*if(Mathf.Abs(Vector3.Distance(planetPos, gameObject.transform.position) - Vector3.Distance(planetPos, before)) <=0.1)
-        {
-            Debug.Log("B");
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-planetToBird.x*Velocity*2, -planetToBird.y*Velocity*2));
-        }*/
-        before = gameObject.transform.position;
     }
 
     public void Dead()
     {
-        EventReturn();
+        //EventReturn();
         Destroy(gameObject);
     }
 
@@ -67,5 +75,10 @@ public class BirdController : MonoBehaviour, IDamageable
         {
             damageable.Hit(this.damage);
         }
+        else
+        {
+            //Debug.Log("C");
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-BirdToPlanet.x * 10, -BirdToPlanet.y * 10);
+        }   
     }
 }

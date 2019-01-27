@@ -7,8 +7,8 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
-    [SerializeField]
-    private float VelocityX = 10;
+    public float Velocity = 10;
+    public float Angle = 180;
     [SerializeField]
     private int damage = 100;
     [SerializeField]
@@ -35,12 +35,12 @@ public class CactusMissileController : MonoBehaviour, IDamageable
         float angle = Mathf.Atan2(MyPosToPlanet.y, MyPosToPlanet.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.AngleAxis(angle+180, Vector3.forward);
 
-        transform.RotateAround(planetPos, new Vector3(0,0,1), 10f * Time.deltaTime);
+        transform.RotateAround(planetPos, new Vector3(0,0,1), Velocity * Time.deltaTime);
     }
 
     public void Dead()
     {
-        EventReturn();
+        //EventReturn();
         Destroy(gameObject);
     }
 
