@@ -55,6 +55,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             )
         {
             damageable.Hit(this.damage);
+            this.Dead();
         }
     }
 }

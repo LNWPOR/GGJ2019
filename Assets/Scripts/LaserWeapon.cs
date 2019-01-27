@@ -55,10 +55,6 @@ public class LaserWeapon : Attacher
         if (attachedObject == null) return;
         GameObject spawned = Instantiate(laserBeamPrefab, guidanceBeam.transform.position, transform.rotation);
 
-        Debug.Log("---v----");
-        Debug.Log("This pos:" + this.transform.position.ToString());
-        Debug.Log("Laser pos: " + guidanceBeam.transform.position.ToString());
-
         currentLaserBeam = spawned.GetComponent<LaserBeam>();
         currentLaserBeam.damage = damage;
         currentLaserBeam.owner = this;
