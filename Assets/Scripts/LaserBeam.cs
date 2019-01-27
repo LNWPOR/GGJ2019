@@ -57,7 +57,7 @@ public class LaserBeam : MonoBehaviour
 
     void HandleCollider(Collider2D collider)
     {
-        Debug.Log(collider.gameObject.name);
+        Debug.Log("Laser hit:" + collider.gameObject.name);
         IDamageable damageable = collider.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             active &&

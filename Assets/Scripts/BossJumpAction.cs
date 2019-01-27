@@ -89,6 +89,7 @@ class BossJumpActionHelper : MonoBehaviour {
     public IEnumerator WaitMoveDownEnd() {
 
         yield return new WaitForSeconds(moveDuration * 3);
+
         moveDownFinish = true;
 
         GameObject camController = GameObject.FindGameObjectWithTag("CameraController");
