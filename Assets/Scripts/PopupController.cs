@@ -9,7 +9,7 @@ public class PopupController : MonoBehaviour {
     public Rigidbody2D Rigidbody { get => rigidbody; set => rigidbody = value; }
     public float moveSpeed = 50f;
     public int damage = 3;
-    public float popupDurationTime = 8f;
+    private float popupDurationTime = 3f;
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
