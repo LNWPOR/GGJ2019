@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaserWeapon : Attacher
 {
-    const float COOLDOWN = 1.2f;
+    const float COOLDOWN = 0.5f;
 
     public GameObject guidanceBeam;
     public GameObject laserBeamPrefab;

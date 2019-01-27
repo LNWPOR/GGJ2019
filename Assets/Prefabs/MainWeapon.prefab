@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 0
-  damage: 50
+  damage: 25
   speed: 80
   bulletPrefab: {fileID: 1657688925792224213, guid: 8b8435c5bb2514efca272e2d083790ef,
     type: 3}

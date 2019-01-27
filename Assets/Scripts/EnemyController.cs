@@ -15,12 +15,16 @@ public class EnemyController : MonoBehaviour, IDamageable
     public float torque = 50f;
     [SerializeField]
     private int damage = 100;
+    public AudioClip impact;
     public System.Action EventReturn;
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -42,6 +46,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public int Hit(int damage)
     {
         hitpoint -= damage;
+        audioSource.PlayOneShot(impact, 0.7F);
         if (hitpoint <= 0) Dead();
         return hitpoint;
     }
