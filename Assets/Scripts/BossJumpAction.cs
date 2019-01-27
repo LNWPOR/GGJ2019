@@ -88,7 +88,7 @@ class BossJumpActionHelper : MonoBehaviour {
 
     public IEnumerator WaitMoveDownEnd() {
 
-        yield return new WaitForSeconds(moveDuration * 3);
+        yield return new WaitForSeconds(moveDuration * 6);
 
         moveDownFinish = true;
 
