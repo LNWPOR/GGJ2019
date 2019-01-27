@@ -51,13 +51,11 @@ public class LaserBeam : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(collider.gameObject.name);
         HandleCollider(collider);
     }
 
     void HandleCollider(Collider2D collider)
     {
-        Debug.Log("Laser hit:" + collider.gameObject.name);
         IDamageable damageable = collider.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             active &&
@@ -67,7 +65,6 @@ public class LaserBeam : MonoBehaviour
             (collider.gameObject.tag == "Enemy" && laserType == BULLET_TYPE.PLAYER))
         )
         {
-            Debug.Log("Laser Hit!: " + collider.gameObject.name);
             hitCache.Add(collider.gameObject, true);
             damageable.Hit(damage);
         }
