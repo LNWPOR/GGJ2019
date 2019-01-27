@@ -7,6 +7,9 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
     public BossController boss;
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
+    public AudioClip impact;
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,7 @@ public class BossWeakpoint : MonoBehaviour, IDamageable
     {
         int remainingHP = this.hitpoint - damage;
         this.hitpoint = remainingHP;
+        audioSource.PlayOneShot(impact, 0.7F);
         if (remainingHP <= 0)
         {
             this.Dead();
