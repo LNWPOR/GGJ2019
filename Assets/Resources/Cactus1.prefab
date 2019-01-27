@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5268353785482705205}
   - component: {fileID: 5637665915339259251}
   m_Layer: 0
-  m_Name: Cactus
+  m_Name: Cactus1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.000000052154064}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -127,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13565174, y: 0.1370926}
+  m_Size: {x: 0.72, y: 1.45}
   m_EdgeRadius: 0
 --- !u!114 &5637665915339259251
 MonoBehaviour:
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitpoint: 100
-  VelocityX: 10
+  Velocity: 10
+  Angle: 180
   damage: 100
   LifeTime: 3

@@ -10,17 +10,17 @@ PrefabInstance:
     - target: {fileID: 5637665915339259250, guid: ece3436ebbae371489cf481adbb85a39,
         type: 3}
       propertyPath: m_Name
-      value: Cactus Variant
+      value: Cactus2
       objectReference: {fileID: 0}
     - target: {fileID: 6412257388701623812, guid: ece3436ebbae371489cf481adbb85a39,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.1485023
+      value: 88.92529
       objectReference: {fileID: 0}
     - target: {fileID: 6412257388701623812, guid: ece3436ebbae371489cf481adbb85a39,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.036498725
+      value: -92.92101
       objectReference: {fileID: 0}
     - target: {fileID: 6412257388701623812, guid: ece3436ebbae371489cf481adbb85a39,
         type: 3}
@@ -81,6 +81,16 @@ PrefabInstance:
     - target: {fileID: 5268353785482705205, guid: ece3436ebbae371489cf481adbb85a39,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268353785482705205, guid: ece3436ebbae371489cf481adbb85a39,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268353785482705205, guid: ece3436ebbae371489cf481adbb85a39,
+        type: 3}
+      propertyPath: m_Size.y
       value: 0.86
       objectReference: {fileID: 0}
     m_RemovedComponents: []
