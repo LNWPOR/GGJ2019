@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     //  TODO: Check on game state condition about enter modes and shit
 
     public Transform followTarget;
@@ -20,13 +19,11 @@ public class CameraController : MonoBehaviour
     public float shakeAmount = 0.7f;
 
     public float shakeDecayRate = 3.0f;
-    
+
     // Update is called once per frame
-    void Update()
-    {
-        if( Input.GetKeyDown(KeyCode.J) )
-        {
-            StartCoroutine(this.Shake( shakeAmount, shakeDecayRate ));
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.J)) {
+            StartCoroutine(this.Shake(shakeAmount, shakeDecayRate));
         }
 
         //  If has no follow target then simply do nothing
@@ -48,11 +45,9 @@ public class CameraController : MonoBehaviour
         //  Rotation
         //
 
-        if(isEnableRotation == true)
-        {
+        if (isEnableRotation == true) {
             //  check if target rotation point exist or not
-            if(rotationPoint != null)
-            {
+            if (rotationPoint != null) {
                 //  Cal Vector2 vector
                 Vector3 rotationPointToSelfDir = (followTarget.position - rotationPoint.position);
                 rotationPointToSelfDir.z = 0.0f;
@@ -70,15 +65,13 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public IEnumerator Shake ( float shakeAmount, float shakeDecayRate )
-    {
+    public IEnumerator Shake(float shakeAmount, float shakeDecayRate) {
         if (cameraObject == null)
             yield break;
 
         Vector3 originalPos = cameraObject.localPosition;
-        
-        while(shakeAmount > 0 )
-        {
+
+        while (shakeAmount > 0) {
             Vector2 shake = Random.insideUnitCircle * shakeAmount;
 
             cameraObject.localPosition = originalPos + new Vector3(shake.x, shake.y, 0);
@@ -89,6 +82,6 @@ public class CameraController : MonoBehaviour
         }
 
         cameraObject.localPosition = originalPos;
-        
+
     }
 }

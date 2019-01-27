@@ -89,5 +89,8 @@ class BossJumpActionHelper : MonoBehaviour {
     public IEnumerator WaitMoveDownEnd() {
         yield return new WaitForSeconds(moveDuration * 3);
         moveDownFinish = true;
+        Camera mainCamera = Camera.main;
+        CameraController cameraController = mainCamera.GetComponent<CameraController>();
+        StartCoroutine(cameraController.Shake(5f, 5f));
     }
 }
