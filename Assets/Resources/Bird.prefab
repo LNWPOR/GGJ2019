@@ -147,6 +147,8 @@ MonoBehaviour:
   damage: 100
   targetTime: 3
   impact: {fileID: 8300000, guid: bc0ddf14808a7d04eb950e5a881e17f4, type: 3}
+  particle: {fileID: 1750611126803245024, guid: 3695ff1cb77dfa4498d4be475db025ac,
+    type: 3}
 --- !u!82 &1566617393806869746
 AudioSource:
   m_ObjectHideFlags: 0

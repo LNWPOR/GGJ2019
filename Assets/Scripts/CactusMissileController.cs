@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CactusMissileController : MonoBehaviour, IDamageable
-{
+public class CactusMissileController : MonoBehaviour, IDamageable {
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
@@ -16,19 +15,18 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     public System.Action EventReturn;
     private Vector3 moveDirection, planetPos, before, MyPosToPlanet, MyPosition, PlayerPos;
     public AudioClip impact;
+    public GameObject particle;
 
     AudioSource audioSource;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         audioSource = GetComponent<AudioSource>();
     }
-    
+
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         //LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) Dead();
 
@@ -37,33 +35,30 @@ public class CactusMissileController : MonoBehaviour, IDamageable
         MyPosToPlanet = Vector3.Normalize(planetPos - MyPosition);
 
         float angle = Mathf.Atan2(MyPosToPlanet.y, MyPosToPlanet.x) * Mathf.Rad2Deg;
-        gameObject.transform.rotation = Quaternion.AngleAxis(angle+Angle, Vector3.forward);
+        gameObject.transform.rotation = Quaternion.AngleAxis(angle + Angle, Vector3.forward);
 
-        transform.RotateAround(planetPos, new Vector3(0,0,1), Velocity * Time.deltaTime);
+        transform.RotateAround(planetPos, new Vector3(0, 0, 1), Velocity * Time.deltaTime);
     }
 
-    public void Dead()
-    {
+    public void Dead() {
         //EventReturn();
+        GameObject particleGenerated = Instantiate(particle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
-    public int Hit(int damage)
-    {
+    public int Hit(int damage) {
         hitpoint -= damage;
         audioSource.PlayOneShot(impact, 0.7F);
         if (hitpoint <= 0) Dead();
         return hitpoint;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
+    public void OnCollisionEnter2D(Collision2D collision) {
         IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             damageable != null &&
             (collision.gameObject.tag == "Player")
-            )
-        {
+            ) {
             damageable.Hit(this.damage);
             this.Dead();
         }
