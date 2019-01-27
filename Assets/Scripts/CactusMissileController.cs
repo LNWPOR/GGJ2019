@@ -7,18 +7,19 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
-    [SerializeField]
-    private float VelocityX = 10;
+    public float Velocity = 10;
+    public float Angle = 180;
     [SerializeField]
     private int damage = 100;
     [SerializeField]
     private float LifeTime = 3;
     public System.Action EventReturn;
+    private Vector3 moveDirection, planetPos, before, MyPosToPlanet, MyPosition, PlayerPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(VelocityX, 0);
+        
     }
 
     // Update is called once per frame
@@ -26,11 +27,20 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     {
         //LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) Dead();
+
+        MyPosition = gameObject.transform.position;
+        planetPos = GameManager.GetInstance().GetPlanet().transform.position;
+        MyPosToPlanet = Vector3.Normalize(planetPos - MyPosition);
+
+        float angle = Mathf.Atan2(MyPosToPlanet.y, MyPosToPlanet.x) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.AngleAxis(angle+Angle, Vector3.forward);
+
+        transform.RotateAround(planetPos, new Vector3(0,0,1), Velocity * Time.deltaTime);
     }
 
     public void Dead()
     {
-        EventReturn();
+        //EventReturn();
         Destroy(gameObject);
     }
 

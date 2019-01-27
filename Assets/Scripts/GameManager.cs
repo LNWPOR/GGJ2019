@@ -5,14 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class GameManager {
     private static GameManager _Instance;
-    public GameObject planet;
+    private GameObject planet;
+    private SceneController scene;
+    private int DeadCount;
 
     public GameObject GetPlanet() {
         if (!planet) {
             planet = GameObject.Find("Planet"); ;
         }
         return planet;
+    }
 
+    public int GetDeadCount()
+    {
+        return DeadCount;
+    }
+
+    public SceneController GetScene()
+    {
+        if (scene == null) scene = GameObject.Find("SceneController").GetComponent<SceneController>();
+        return scene;
     }
 
     public static GameManager GetInstance() {
@@ -33,6 +45,12 @@ public class GameManager {
 
     public void DoPlayerDead() {
         Debug.Log("<color=red>DoPlayerDead.</color>");
+        ++DeadCount;
+        GetScene().DoPlayerDead();
+    }
+
+    public void DoRestartScene()
+    {
         SceneManager.LoadScene("TestCircleWorld");
     }
 
