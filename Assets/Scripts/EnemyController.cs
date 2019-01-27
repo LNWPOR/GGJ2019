@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamageable
-{
+public class EnemyController : MonoBehaviour, IDamageable {
     [SerializeField]
     private float lifetime = 15f;
     [SerializeField]
@@ -17,48 +16,44 @@ public class EnemyController : MonoBehaviour, IDamageable
     private int damage = 100;
     public AudioClip impact;
     public System.Action EventReturn;
+    public GameObject particle;
 
     AudioSource audioSource;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
         audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         //lifetime -= Time.deltaTime;
         if (lifetime <= 0) Dead();
-        if(gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity  )
-        {
+        if (gameObject.GetComponent<Rigidbody2D>().angularVelocity < MinAngularVelocity) {
             gameObject.GetComponent<Rigidbody2D>().AddTorque(torque);
         }
     }
 
-    public void Dead()
-    {
+    public void Dead() {
+        GameObject particleGenerated = Instantiate(particle, transform.position, Quaternion.identity);
         Destroy(gameObject);
+
     }
 
-    public int Hit(int damage)
-    {
+    public int Hit(int damage) {
         hitpoint -= damage;
         audioSource.PlayOneShot(impact, 0.7F);
         if (hitpoint <= 0) Dead();
         return hitpoint;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
+    public void OnCollisionEnter2D(Collision2D collision) {
         IDamageable damageable = collision.gameObject.GetComponent(typeof(IDamageable)) as IDamageable;
         if (
             damageable != null &&
             (collision.gameObject.tag == "Player")
-            )
-        {
+            ) {
             damageable.Hit(this.damage);
             this.Dead();
         }
