@@ -15,10 +15,14 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     private float LifeTime = 3;
     public System.Action EventReturn;
     private Vector3 moveDirection, planetPos, before, MyPosToPlanet, MyPosition, PlayerPos;
+    public AudioClip impact;
+
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
     
 
@@ -47,6 +51,7 @@ public class CactusMissileController : MonoBehaviour, IDamageable
     public int Hit(int damage)
     {
         hitpoint -= damage;
+        audioSource.PlayOneShot(impact, 0.7F);
         if (hitpoint <= 0) Dead();
         return hitpoint;
     }
