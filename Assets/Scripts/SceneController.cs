@@ -13,6 +13,8 @@ public class SceneController : MonoBehaviour
     [SerializeField]
     private GameObject _Camera;
     [SerializeField]
+    private GameObject _CameraController;
+    [SerializeField]
     private Image _FadeImage;
     [SerializeField]
     private Text _GreetText;
@@ -99,7 +101,7 @@ public class SceneController : MonoBehaviour
 
     IEnumerator DoZoom(System.Action callback)
     {
-        _Camera.GetComponent<CameraController>().enabled = true;
+        _CameraController.GetComponent<CameraController>().enabled = true;
         float time = 0f;
         float originalSize = Camera.main.orthographicSize;
         while (time < ZOOM_TIME)

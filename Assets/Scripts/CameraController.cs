@@ -66,6 +66,7 @@ public class CameraController : MonoBehaviour {
     }
 
     public IEnumerator Shake(float shakeAmount, float shakeDecayRate) {
+
         if (cameraObject == null)
             yield break;
 
