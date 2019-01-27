@@ -83,11 +83,11 @@ Material:
     - _UVSec: 0
     - _WaveLength: 4.57
     - _ZWrite: 1
-    - _minSurfaceHeight: 17.057049
-    - _numSurfaceVerticies: 225
+    - _minSurfaceHeight: 49
+    - _numSurfaceVerticies: 300
     m_Colors:
     - _BottomGroundColor: {r: 0.46666667, g: 0.3372549, b: 0.21568628, a: 1}
     - _Color: {r: 0.55747753, g: 0.8301887, b: 0.36418653, a: 1}
-    - _CoreCenter: {r: -7.5, g: 11.1, b: 0, a: 0}
+    - _CoreCenter: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TopGroundColor: {r: 0.48423043, g: 0.8301887, b: 0.246707, a: 1}

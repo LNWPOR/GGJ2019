@@ -23,13 +23,11 @@ public class PlanetMeshGeneratorCustomEditor : Editor
 
         if (GUILayout.Button("Random Seed"))
         {
-            Debug.Log("random seed");
             targetPlanetMeshGenerator.randomSeed();
         }
 
         if (GUILayout.Button("Generate Planet"))
         {
-            Debug.Log("gen planet");
             targetPlanetMeshGenerator.startGenPlanetMeshProcess();
         }
     }
@@ -42,10 +40,16 @@ public class PlanetMeshGenerator : MonoBehaviour
     //  -----
     //  public member
     //  -----
-    public float radius = 10;
-    public int numOfVerticies = 200;
-    public float terrainFluctuationMagnitude = 3;
-    public float terrainFluctuationLength = 2;
+    public float radius = 50;
+    public int numOfVerticies = 300;
+
+    public float terrainFluctuationMagnitude = 7;
+
+    public float noiseAmplitude = 128;
+    public float noiseFrequency = 4;
+    public int octaveCount = 12;
+    public float octavePersistence = 0.3f;
+
     public Material material;
     
     //  -----
@@ -110,6 +114,28 @@ public class PlanetMeshGenerator : MonoBehaviour
         GetComponent<MeshRenderer>().material = material;
     }
 
+    public float octavePerlin( float x )
+    {
+        float total = 0;
+        float maxValue = 0;
+        float frequency = this.noiseFrequency;
+        float amplitude = this.noiseAmplitude;
+
+        for (int i = 0; i < this.octaveCount; i++)
+        {
+            //total += perlin(x * frequency, y * frequency, z * frequency) * amplitude;
+
+            total += (Mathf.PerlinNoise(x * frequency, this.perlinSeed) * 2 - 1) * amplitude;
+
+            maxValue += amplitude;
+            
+            amplitude *= this.octavePersistence;
+            frequency *= 2;
+        }
+
+        return total / maxValue;
+    }
+
     private void genPlanetMesh()
     {
         //
@@ -147,9 +173,10 @@ public class PlanetMeshGenerator : MonoBehaviour
         while( accumulatedAngle > -2 * Mathf.PI )
         {
             Vector3 dirToSurface = new Vector3(Mathf.Cos(accumulatedAngle), Mathf.Sin(accumulatedAngle));
-            
-            float terrainHeight = radius 
-                                    + terrainFluctuationMagnitude * ( Mathf.PerlinNoise(accumulatedAngle * terrainFluctuationLength, perlinSeed) * 2 - 1 );
+
+            float noise = this.octavePerlin( accumulatedAngle );
+
+            float terrainHeight = radius + noise * this.terrainFluctuationMagnitude;
 
             //  Cache min surface height for shader
             if(this.minSurfaceHeight > terrainHeight)
