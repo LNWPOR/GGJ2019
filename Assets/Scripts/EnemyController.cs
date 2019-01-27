@@ -12,9 +12,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     [SerializeField]
     private float MinAngularVelocity = 20;
     [SerializeField]
-    private float torque = 50f;
+    public float torque = 50f;
     [SerializeField]
     private int damage = 100;
+    public System.Action EventReturn;
 
     // Start is called before the first frame update
     void Start()

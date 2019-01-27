@@ -27,7 +27,8 @@ public class BossController : AttachableObject {
             new BossJumpAction(gameObject, true),
             new BossJumpAction(gameObject),
             new BossSummonerCactus(Random.insideUnitCircle.normalized * 65, 10f, 180f),
-            new BossSummonerBird(Random.insideUnitCircle.normalized * 80)
+            new BossSummonerBird(Random.insideUnitCircle.normalized * 80),
+            new BossSummonerEnemy(Random.insideUnitCircle.normalized * 80, 10)
         };
     }
 

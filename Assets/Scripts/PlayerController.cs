@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : AttachableObject, IDamageable
 {
-    const float LIFETIME = 5f;
+    const float LIFETIME = 500f;
     [SerializeField]
     public float lifetime;
 
