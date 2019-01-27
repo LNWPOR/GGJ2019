@@ -75,7 +75,11 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< e3de608692a673ffa2007aba7366a6c8f2e0e32e
     spriteID: e68ba677e0a0974498ed781fd4ed3897
+=======
+    spriteID: 62b50420e3be00c45bc093a2ea50d667
+>>>>>>> add animation for popup
     vertices: []
     indices: 
     edges: []

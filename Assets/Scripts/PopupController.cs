@@ -19,6 +19,7 @@ public class PopupController : MonoBehaviour {
     void Update() {
         //rigidbody.AddForce(shootingDir * moveSpeed);
         transform.Translate(shootingDir * moveSpeed * Time.deltaTime);
+        UpdatePopupRotation();
     }
 
     public void OnTriggerEnter2D(Collider2D collider) {
@@ -30,5 +31,13 @@ public class PopupController : MonoBehaviour {
             damageable.Hit(damage);
             Destroy(gameObject);
         }
+    }
+
+    void UpdatePopupRotation() {
+        GameObject planet = GameManager.GetInstance().GetPlanet();
+        Vector2 between = transform.position - planet.transform.position;
+        Vector2 ninetyDegrees = Vector2.Perpendicular(between) * -1;
+        float angle = Mathf.Atan2(ninetyDegrees.y, ninetyDegrees.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
