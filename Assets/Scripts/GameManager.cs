@@ -13,6 +13,7 @@ public class GameManager {
     public float noiseFrequency = 4;
     public float terrainFluctuationMagnitude = 10;
     public float octavePersistence = 0.3f;
+    public float planetSpeed = 5;
     // noiseFrequency += 1.3f;
     // planetMeshGen.terrainFluctuationMagnitude += 2;
     // planetMeshGen.octavePersistence
@@ -73,6 +74,7 @@ public class GameManager {
         this.noiseFrequency += 1.3f;
         this.terrainFluctuationMagnitude += 2;
         this.octavePersistence += 0.1f;
+        this.planetSpeed += 5;
 
         //  Increase monster
         AdditionMonster += 5;

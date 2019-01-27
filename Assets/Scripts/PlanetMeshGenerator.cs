@@ -74,6 +74,9 @@ public class PlanetMeshGenerator : MonoBehaviour
         this.noiseFrequency = gameManagerInstance.noiseFrequency;
         this.terrainFluctuationMagnitude = gameManagerInstance.terrainFluctuationMagnitude;
         this.octavePersistence = gameManagerInstance.octavePersistence;
+        
+        
+
         startGenPlanetMeshProcess();
     }
 
@@ -85,6 +88,8 @@ public class PlanetMeshGenerator : MonoBehaviour
         material.SetFloat("_numSurfaceVerticies", colliderVerticies.Count );
 
         material.SetFloat("_minSurfaceHeight", this.minSurfaceHeight);
+
+        material.SetFloat("_Speed", GameManager.GetInstance().planetSpeed);
     }
 
     public void randomSeed()
