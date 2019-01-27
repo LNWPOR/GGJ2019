@@ -21,7 +21,8 @@ public class BossSummonerCactus : ActionBased
 
     public override void Start()
     {
-        GameObject Cactus = Helper.CreateObject("Cactus");
+        string name = "Cactus" + UnityEngine.Random.Range(1, 4).ToString();
+        GameObject Cactus = Helper.CreateObject(name);
         Cactus.transform.position = this.position;
         Cactus.GetComponent<CactusMissileController>().Velocity = this.velocity;
         Cactus.GetComponent<CactusMissileController>().Angle = this.angle;

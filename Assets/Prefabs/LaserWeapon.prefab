@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb10823f6e7c04a32b09f759589d24ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 0
   guidanceBeam: {fileID: 6344080538145348767}
   laserBeamPrefab: {fileID: 3774901963688581998, guid: 22e472b6e411041bb974402f601f2b6e,
     type: 3}
@@ -167,7 +168,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1c7ed8afb4246f4090e8861b0ccc2bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c69cc327c7cc2ca458103eb4d238ff81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
