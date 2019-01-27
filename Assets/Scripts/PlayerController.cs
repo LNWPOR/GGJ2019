@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerController : AttachableObject, IDamageable
 {
-    const float LIFETIME = 60f;
+    const float LIFETIME = 5f;
     [SerializeField]
     public float lifetime;
 
     [SerializeField]
     private int hitpoint = 100;
     public int Hitpoint { get; set; }
+    private bool IsDead;
 
     private Rigidbody2D rigidbody;
     [SerializeField]
@@ -147,6 +148,10 @@ public class PlayerController : AttachableObject, IDamageable
 
     public void Dead()
     {
-        GameManager.GetInstance().DoPlayerDead();
+        if (!IsDead)
+        {
+            IsDead = true;
+            GameManager.GetInstance().DoPlayerDead();
+        }
     }
 }
