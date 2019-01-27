@@ -19,6 +19,7 @@ public class BossShootPopup : ActionBased {
 
     public override void Start() {
         shootingDir = popupSpawner.transform.localPosition - bossMouse.transform.localPosition;
+        shootingDir.z = 0f;
         GameObject shootingPopup = popupPrefabs[Random.Range(0, popupPrefabs.Count)];
 
         bossShootPopupHelperObject = new GameObject("bossShootPopupHelperObject");
@@ -53,7 +54,8 @@ class BossShootPopupHelper : MonoBehaviour {
     }
 
     public IEnumerator CheckShootingEnd() {
-        GameObject shootedPopup = Instantiate(shootingPopup, popupSpawner.transform.position, popupSpawner.transform.rotation) as GameObject;
+        Vector3 spawnPoint = new Vector3(popupSpawner.transform.position.x, popupSpawner.transform.position.y, 0);
+        GameObject shootedPopup = Instantiate(shootingPopup, spawnPoint, popupSpawner.transform.rotation) as GameObject;
         PopupController popupController = shootedPopup.GetComponent<PopupController>();
         popupController.ShootingDir = shootingDir;
         yield return new WaitForSeconds(shootingDuration);
