@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c69cc327c7cc2ca458103eb4d238ff81
+guid: efe8455a3ad336541ba15d6430d9cbc1
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -75,11 +75,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-<<<<<<< e3de608692a673ffa2007aba7366a6c8f2e0e32e
-    spriteID: e68ba677e0a0974498ed781fd4ed3897
-=======
-    spriteID: 62b50420e3be00c45bc093a2ea50d667
->>>>>>> add animation for popup
+    spriteID: 91d8c9252e2c848419b42197c7718cff
     vertices: []
     indices: 
     edges: []

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4805907426339045854}
   - component: {fileID: 6197960027096307674}
   - component: {fileID: 8078449941878762339}
+  - component: {fileID: 1408309784}
   m_Layer: 0
   m_Name: no-private
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   damage: 3
+  popupDurationTime: 8
 --- !u!50 &6197960027096307674
 Rigidbody2D:
   serializedVersion: 4
@@ -134,12 +136,31 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.12, y: 3.9}
+    oldSize: {x: 4.3, y: 1.78}
     newSize: {x: 10.12, y: 3.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.12, y: 3.9}
+  m_Size: {x: 4.3, y: 1.78}
   m_EdgeRadius: 0
+--- !u!95 &1408309784
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601470687415268323}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c3687e216bc8aa9459bac7078f47f59c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
