@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossController : AttachableObject {
     public List<BossWeakpoint> weakpoints;
     private List<ActionBased> actionList;
+    public GameObject popupSpawner;
     private AutoQueue _BossMainQueue = new AutoQueue();
     // Start is called before the first frame update
     void Start() {
@@ -26,8 +27,10 @@ public class BossController : AttachableObject {
             new BossWalkAction(gameObject),
             new BossJumpAction(gameObject, true),
             new BossJumpAction(gameObject),
+            new BossShootPopup(popupSpawner),
             new BossSummonerCactus(Random.insideUnitCircle.normalized * 65, 10f, 180f),
-            new BossSummonerBird(Random.insideUnitCircle.normalized * 80)
+            new BossSummonerBird(Random.insideUnitCircle.normalized * 80),
+            new BossSummonerEnemy(Random.insideUnitCircle.normalized * 80, 50)
         };
     }
 

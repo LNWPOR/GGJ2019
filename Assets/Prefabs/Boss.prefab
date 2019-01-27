@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &438732352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438732353}
+  m_Layer: 0
+  m_Name: BossMouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438732353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438732352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9031383802207991757}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1425961007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425961009}
+  - component: {fileID: 1425961008}
+  m_Layer: 0
+  m_Name: PopupSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1425961009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425961007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9031383802207991757}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425961008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425961007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae695c26ccdc7042b980914f4223c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossMouse: {fileID: 438732352}
+  popupPrefabs:
+  - {fileID: 6726334214640138414, guid: a4d6b956bba17804c8f850875f90d834, type: 3}
+  - {fileID: 7172821864644391547, guid: 227ade224b7d25f4284500af9281b710, type: 3}
+  - {fileID: 2601470687415268323, guid: f7f2863f2bcace54ca37c664db5e4000, type: 3}
+  - {fileID: 1245762875066825943, guid: b8091e9fb5f8b29409293a01713c450e, type: 3}
 --- !u!1 &479241671469467078
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +111,8 @@ Transform:
   - {fileID: 1497499519782874671}
   - {fileID: 5482390304753775603}
   - {fileID: 5995489792429299464}
+  - {fileID: 1425961009}
+  - {fileID: 438732353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,6 +132,7 @@ MonoBehaviour:
   - {fileID: 1508166566991231229}
   - {fileID: 7723259272870460523}
   - {fileID: 7919185669897029036}
+  popupSpawner: {fileID: 1425961007}
 --- !u!212 &198544764
 SpriteRenderer:
   m_ObjectHideFlags: 0
