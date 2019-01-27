@@ -30,7 +30,7 @@ public class BossController : AttachableObject {
             new BossShootPopup(popupSpawner),
             new BossSummonerCactus(Random.insideUnitCircle.normalized * 65, 10f, 180f),
             new BossSummonerBird(Random.insideUnitCircle.normalized * 80),
-            new BossSummonerEnemy(Random.insideUnitCircle.normalized * 80, 10)
+            new BossSummonerEnemy(Random.insideUnitCircle.normalized * 80, 50)
         };
     }
 
