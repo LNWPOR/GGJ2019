@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainWeapon : Attacher
 {
-    const float COOLDOWN = 0.5f;
+    const float COOLDOWN = 0.1f;
 
     [SerializeField]
     private int damage;

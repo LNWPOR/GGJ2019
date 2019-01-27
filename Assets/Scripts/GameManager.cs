@@ -8,6 +8,7 @@ public class GameManager {
     private GameObject planet;
     private SceneController scene;
     private int DeadCount;
+    private int additionMonster = 0;
 
     public GameObject GetPlanet() {
         if (!planet) {
@@ -16,13 +17,11 @@ public class GameManager {
         return planet;
     }
 
-    public int GetDeadCount()
-    {
+    public int GetDeadCount() {
         return DeadCount;
     }
 
-    public SceneController GetScene()
-    {
+    public SceneController GetScene() {
         if (scene == null) scene = GameObject.Find("SceneController").GetComponent<SceneController>();
         return scene;
     }
@@ -38,6 +37,8 @@ public class GameManager {
     private STATE _GameState;
     private float _SpeedMultipier = 1f;
 
+    public int AdditionMonster { get => additionMonster; set => additionMonster = value; }
+
     public enum STATE {
         GamePlay,
         BossFight
@@ -49,8 +50,7 @@ public class GameManager {
         GetScene().DoPlayerDead();
     }
 
-    public void DoRestartScene()
-    {
+    public void DoRestartScene() {
         SceneManager.LoadScene("TestCircleWorld");
     }
 
@@ -68,6 +68,7 @@ public class GameManager {
         planetMeshGen.terrainFluctuationMagnitude += 2;
         planetMeshGen.octavePersistence += 0.1f;
         planetMeshGen.startGenPlanetMeshProcess();
+        AdditionMonster += 2;
 
 
         SceneManager.LoadScene("TestCircleWorld");

@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FlowTest1.unity
-    guid: 11359e4d113b44aa7a539f0fe86d4a53
-  - enabled: 1
     path: Assets/Scenes/TestCircleWorld.unity
     guid: 17fba0b9635060d429e81001ae6f2757
   m_configObjects: {}
