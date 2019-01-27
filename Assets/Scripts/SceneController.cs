@@ -62,13 +62,37 @@ public class SceneController : MonoBehaviour
             {
                 _GreetText.text = "Welcome home again.";
             }
+            else if (GameManager.GetInstance().GetDeadCount() < 3)
+            {
+                _GreetText.text = "Welcome again with love.";
+            }
+            else if (GameManager.GetInstance().GetDeadCount() < 4)
+            {
+                _GreetText.text = "Third time isn't a charm, right?";
+            }
             else if (GameManager.GetInstance().GetDeadCount() < 5)
             {
-                _GreetText.text = "Look like you love this home.";
+                _GreetText.text = "Come on, It's not that hard.";
+            }
+            else if (GameManager.GetInstance().GetDeadCount() < 6)
+            {
+                _GreetText.text = "May the force be with you.";
+            }
+            else if (GameManager.GetInstance().GetDeadCount() < 7)
+            {
+                _GreetText.text = "Maybe a little more force.";
+            }
+            else if (GameManager.GetInstance().GetDeadCount() < 8)
+            {
+                _GreetText.text = "You getting closer, never give up!!";
+            }
+            else if (GameManager.GetInstance().GetDeadCount() < 9)
+            {
+                _GreetText.text = "Maybe you should play Fornite instead.";
             }
             else
             {
-                _GreetText.text = "Hmmm.. try harder pls. noob.";
+                _GreetText.text = "Look like may take eternity...";
             }
         }
         float time = 0f;
